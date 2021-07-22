@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core;
+//package com.github.scorchedpsyche.scorchedcraft.fabric.core;
 
-import com.github.scorchedpsyche.scorchedcraft.shared.core.CoreShared;
+//import com.github.scorchedpsyche.scorchedcraft.shared.core.CoreShared;
 import net.fabricmc.api.ModInitializer;
 
 public class Core implements ModInitializer {
@@ -25,6 +25,6 @@ public class Core implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		CoreShared coreShared = new CoreShared();
+//		CoreShared coreShared = new CoreShared();
 	}
 }

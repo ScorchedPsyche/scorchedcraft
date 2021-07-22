@@ -1,7 +1,8 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'java'
+    id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'maven-publish'
 }
-apply plugin: 'java'
 
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16

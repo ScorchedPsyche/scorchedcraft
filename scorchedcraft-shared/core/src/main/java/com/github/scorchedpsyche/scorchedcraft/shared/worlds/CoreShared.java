@@ -16,8 +16,8 @@
 
 package com.github.scorchedpsyche.scorchedcraft.shared.worlds;
 
-public class WorldsShared {
-    public WorldsShared()
+public class CoreShared {
+    public CoreShared()
     {
         System.out.println("=========================================================");
         System.out.println("=========================================================");

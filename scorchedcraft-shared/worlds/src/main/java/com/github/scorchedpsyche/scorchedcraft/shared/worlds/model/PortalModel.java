@@ -1,6 +1,6 @@
 package com.github.scorchedpsyche.scorchedcraft.shared.worlds.model;
 
-import net.minecraft.world.World;
+//import net.minecraft.world.World;
 
 public class PortalModel {
     public PortalModel()
@@ -8,5 +8,5 @@ public class PortalModel {
     }
 
     private String name;
-    private World world;
+//    private World world;
 }
