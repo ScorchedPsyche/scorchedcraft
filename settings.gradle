@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'scorchedcraft'
+
+include (
+        // Shared
+        'scorchedcraft-shared',
+        'scorchedcraft-shared:core',
+        'scorchedcraft-shared:worlds',
+
+        // Fabric
+        'scorchedcraft-fabric',
+        'scorchedcraft-fabric:core',
+        'scorchedcraft-fabric:worlds'
+)

@@ -1,0 +1,14 @@
+subprojects {
+	apply plugin: 'java'
+
+	task('fabric_clean-modules'){
+		println "Cleaning Fabric module \"$project.name\""
+
+		delete "run"
+
+		// Delete all folders except Loom cache
+		fileTree(dir: 'build').exclude("loom_cache").visit {
+			FileVisitDetails details -> delete details.file
+		}
+	}
+}

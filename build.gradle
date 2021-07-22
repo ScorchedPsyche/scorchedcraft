@@ -1,0 +1,17 @@
+plugins {
+	id 'maven-publish'
+}
+
+allprojects {
+	apply plugin: 'java' //so that we can use 'compile', 'testCompile' for dependencies
+}
+
+project(':scorchedcraft-fabric'){
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		gradlePluginPortal()
+	}
+}

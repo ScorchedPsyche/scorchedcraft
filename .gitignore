@@ -1,14 +1,77 @@
+# Gradle
 .gradle
-/build/
 
-# Ignore Gradle GUI config
-gradle-app.setting
+# ============ OSs ============
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+# Windows
+*.db
+$RECYCLE.BIN/
 
-# Cache of project
-.gradletasknamecache
+# Mac
+.DS_Store
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+# ============ IDEs ============
+# VSCode
+.settings/
+.vscode/
+
+# Eclipse
+.checkstyle
+.classpath
+.metadata
+.settings
+.project
+*.launch
+
+# Intellij/Idea
+.factorypath
+.idea
+*.iml
+*.ipr
+*.iws
+
+
+# ============ ScorchedCraft ============
+
+
+# ============ Fabric ============
+
+# Build artifacts
+bin/
+build/
+jars/
+out/
+classes/
+
+# Debug artifacts
+run
+*.log
+
+# ============ Bukkit ============
+
+# netbeans
+/nbproject
+
+# we use maven!
+/build.xml
+
+# maven
+/target
+
+# vim
+.*.sw[a-p]
+
+# various other potential build files
+/build
+/bin
+/dist
+/manifest.mf
+
+# Mac filesystem dust
+.DS_Store
+
+# intellij
+*.iml
+*.ipr
+*.iws
+.idea/
