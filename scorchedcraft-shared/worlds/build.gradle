@@ -24,13 +24,6 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
-    // fabric-loader dependencies
-    implementation "org.ow2.asm:asm:${project.asm_version}"
-    implementation "org.ow2.asm:asm-analysis:${project.asm_version}"
-    implementation "org.ow2.asm:asm-commons:${project.asm_version}"
-    implementation "org.ow2.asm:asm-tree:${project.asm_version}"
-    implementation "org.ow2.asm:asm-util:${project.asm_version}"
-
     // Required for mixin annotation processor
     annotationProcessor "org.ow2.asm:asm:${project.asm_version}"
     annotationProcessor "org.ow2.asm:asm-analysis:${project.asm_version}"
