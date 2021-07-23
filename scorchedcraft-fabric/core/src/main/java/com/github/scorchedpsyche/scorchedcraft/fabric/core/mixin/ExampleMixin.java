@@ -1,4 +1,4 @@
-package com.github.scorchedpsyche.scorchedcraft.fabric.worlds.mixin;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;

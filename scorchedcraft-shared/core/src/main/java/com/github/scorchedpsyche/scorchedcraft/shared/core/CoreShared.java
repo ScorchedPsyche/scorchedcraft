@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.shared.worlds;
+package com.github.scorchedpsyche.scorchedcraft.shared.core;
 
 public class CoreShared {
     public CoreShared()

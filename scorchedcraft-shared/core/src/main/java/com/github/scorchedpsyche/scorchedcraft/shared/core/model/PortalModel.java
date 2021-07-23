@@ -1,4 +1,4 @@
-package com.github.scorchedpsyche.scorchedcraft.shared.worlds.model;
+package com.github.scorchedpsyche.scorchedcraft.shared.core.model;
 
 import net.minecraft.world.World;
 

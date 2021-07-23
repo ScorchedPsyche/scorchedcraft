@@ -1,4 +1,4 @@
-/*
+package com.github.scorchedpsyche.scorchedcraft.fabric.core;/*
  * Copyright (c) 2021 ScorchedPsyche
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
