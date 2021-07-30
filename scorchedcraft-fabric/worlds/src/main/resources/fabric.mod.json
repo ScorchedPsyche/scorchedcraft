@@ -33,7 +33,9 @@
     "fabricloader": ">=0.11.3",
     "fabric": "*",
     "minecraft": "1.17.x",
-    "java": ">=16"
+    "java": ">=16",
+
+    "scorchedcraft-core": ">=0.0.1"
   },
   "suggests": {
     "another-mod": "*"

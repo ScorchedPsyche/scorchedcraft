@@ -1,14 +1,52 @@
+plugins {
+	id 'java'
+	id 'application'
+}
+
+//dependencies {
+//	implementation(project(":scorchedcraft-fabric:core"))
+//	implementation(project(":scorchedcraft-shared:core"))
+//
+//	implementation(project(":scorchedcraft-fabric:worlds"))
+//	implementation(project(":scorchedcraft-shared:worlds"))
+//}
+
 subprojects {
-	apply plugin: 'java'
+	apply plugin: 'maven-publish'
 
-	task('fabric_clean-modules'){
-		println "Cleaning Fabric module \"$project.name\""
+	sourceCompatibility = JavaVersion.VERSION_16
+	targetCompatibility = JavaVersion.VERSION_16
+}
 
-		delete "run"
+task fabric_run__client (){
+	dependsOn(':scorchedcraft-fabric:core:build')
+	dependsOn(':scorchedcraft-fabric:worlds:build')
+	doLast {
+		task copy_mods(type: Copy){
+			def jars=[]
+			subprojects.each {
+				def originFile = '' + it.buildDir + '\\libs\\' + it.archives_base_name + '-' + it.getVersion() + '.jar'
+				def destinationDirectory = file('../run/mods')
 
-		// Delete all folders except Loom cache
-		fileTree(dir: 'build').exclude("loom_cache").visit {
-			FileVisitDetails details -> delete details.file
+				println('Copying ' + originFile)
+
+				copy {
+					from(originFile)
+					into(destinationDirectory)
+				}
+			}
 		}
+	}
+	finalizedBy ':scorchedcraft-fabric:core:runClient'
+}
+
+task('fabric_clean__modules'){
+	println "Cleaning Fabric module \"$project.name\""
+
+	delete "run"
+
+	// Delete all folders except Loom cache
+	fileTree(dir: 'build').exclude("loom_cache").visit {
+		FileVisitDetails details -> delete details.file
 	}
 }

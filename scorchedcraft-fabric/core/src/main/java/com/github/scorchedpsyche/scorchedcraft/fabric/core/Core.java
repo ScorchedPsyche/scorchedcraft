@@ -17,11 +17,14 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.core;/*
 //package com.github.scorchedpsyche.scorchedcraft.fabric.core;
 
 //import com.github.scorchedpsyche.scorchedcraft.shared.core.CoreShared;
+import com.github.scorchedpsyche.scorchedcraft.shared.core.CoreShared;
 import net.fabricmc.api.ModInitializer;
 
 public class Core implements ModInitializer {
 	@Override
 	public void onInitialize() {
+		System.out.println("CORE: onInitialize");
+		CoreShared coreShared = new CoreShared();
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
