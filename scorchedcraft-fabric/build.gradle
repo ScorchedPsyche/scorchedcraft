@@ -20,11 +20,8 @@ subprojects {
 task fabric_rebuild (){
 	dependsOn(':scorchedcraft-fabric:fabric_clean__modules')
 
-//	dependsOn(':scorchedcraft-shared:core:publishToMavenLocal')
-//	dependsOn(':scorchedcraft-shared:core:build')
-
 	dependsOn(':scorchedcraft-fabric:core:build')
-//	dependsOn(':scorchedcraft-fabric:worlds:build')
+	dependsOn(':scorchedcraft-fabric:worlds:build')
 	doLast {
 		task copy_mods(type: Copy){
 //			def jars=[]
@@ -63,8 +60,8 @@ task fabric_clean__modules (){
 	dependsOn(':scorchedcraft-shared:core-shared:clean')
 
 	dependsOn(':scorchedcraft-fabric:core:clean')
+	dependsOn(':scorchedcraft-fabric:worlds:clean')
 
-//	dependsOn(':scorchedcraft-fabric:worlds:clean')
 	println "Cleaning folders"
 	delete '.out'
 
