@@ -30,10 +30,10 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 
-	api(project(":scorchedcraft-shared:core_shared"))
+	api(project(":scorchedcraft-shared:core-shared"))
 }
 
-compileJava.dependsOn ':scorchedcraft-shared:core_shared:build'
+compileJava.dependsOn ':scorchedcraft-shared:core-shared:build'
 //compileJava{
 //	dependsOn project(':scorchedcraft-shared:core').tasks.publishToMavenLocal
 //}

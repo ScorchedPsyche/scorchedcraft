@@ -13,7 +13,7 @@ rootProject.name = 'scorchedcraft'
 include (
         // Shared
         'scorchedcraft-shared',
-        'scorchedcraft-shared:core_shared',
+        'scorchedcraft-shared:core-shared',
 //        'scorchedcraft-shared:worlds',
 
         // Fabric

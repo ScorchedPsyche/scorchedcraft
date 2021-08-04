@@ -55,12 +55,12 @@ task fabric_rebuild (){
 }
 
 task fabric_run__client (){
-	dependsOn(':scorchedcraft-fabric:fabric_build')
+	dependsOn(':scorchedcraft-fabric:fabric_rebuild')
 	finalizedBy ':scorchedcraft-fabric:core:runClient'
 }
 
 task('fabric_clean__modules'){
-	dependsOn(':scorchedcraft-shared:core_shared:clean')
+	dependsOn(':scorchedcraft-shared:core-shared:clean')
 
 	dependsOn(':scorchedcraft-fabric:core:clean')
 
