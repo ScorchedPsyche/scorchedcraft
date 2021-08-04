@@ -59,15 +59,14 @@ task fabric_run__client (){
 	finalizedBy ':scorchedcraft-fabric:core:runClient'
 }
 
-task('fabric_clean__modules'){
+task fabric_clean__modules (){
 	dependsOn(':scorchedcraft-shared:core-shared:clean')
 
 	dependsOn(':scorchedcraft-fabric:core:clean')
 
 //	dependsOn(':scorchedcraft-fabric:worlds:clean')
-	println "Cleaning Fabric module \"$project.name\""
-
-	delete "run"
+	println "Cleaning folders"
+	delete '.out'
 
 	// Delete all folders except Loom cache
 	fileTree(dir: 'build').exclude("loom_cache").visit {
