@@ -1,4 +1,4 @@
-package com.github.scorchedpsyche.scorchedcraft.fabric.core;/*
+/*
  * Copyright (c) 2021 ScorchedPsyche
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,17 +14,16 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.core;/*
  * limitations under the License.
  */
 
-//package com.github.scorchedpsyche.scorchedcraft.fabric.core;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core;
 
-//import com.github.scorchedpsyche.scorchedcraft.shared.core.CoreShared;
-import com.github.scorchedpsyche.scorchedcraft.shared.core.CoreShared;
+import com.github.scorchedpsyche.scorchedcraft.shared.core_shared.Core_Shared;
 import net.fabricmc.api.ModInitializer;
 
 public class Core implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		System.out.println("CORE: onInitialize");
-		CoreShared coreShared = new CoreShared();
+		Core_Shared coreShared = new Core_Shared();
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.

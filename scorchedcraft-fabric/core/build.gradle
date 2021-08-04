@@ -1,5 +1,6 @@
 plugins {
 	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'java-library'
 }
 
 sourceCompatibility = JavaVersion.VERSION_16
@@ -29,8 +30,13 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 
-	implementation(project(":scorchedcraft-shared:core"))
+	api(project(":scorchedcraft-shared:core_shared"))
 }
+
+compileJava.dependsOn ':scorchedcraft-shared:core_shared:build'
+//compileJava{
+//	dependsOn project(':scorchedcraft-shared:core').tasks.publishToMavenLocal
+//}
 
 processResources {
 	inputs.property "version", project.version
@@ -59,6 +65,17 @@ java {
 }
 
 jar {
+	from {
+		configurations
+				.runtimeClasspath
+				.collect {
+					if(it.name.contains("core__shared")) {
+						println('ZIPPED: ' + it.path)
+						zipTree(it)
+					}
+				}
+	}
+
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
