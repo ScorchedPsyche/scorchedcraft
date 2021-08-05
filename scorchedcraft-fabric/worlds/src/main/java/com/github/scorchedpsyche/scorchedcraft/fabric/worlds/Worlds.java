@@ -16,15 +16,25 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.worlds;
 
-import com.github.scorchedpsyche.scorchedcraft.shared.worlds.WorldsShared;
+import com.github.scorchedpsyche.scorchedcraft.shared.core.managers.server.WorldsServerManager;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 
 public class Worlds implements ModInitializer {
+	WorldsServerManager worldsManager = new WorldsServerManager();
+
+	/**
+	 * This code runs as soon as Minecraft is in a mod-load-ready state.
+	 * However, some things (like resources) may still be uninitialized.
+	 * Proceed with mild caution.
+	 */
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-		WorldsShared worldsShared = new WorldsShared();
+		System.out.println("WORLDS");
+		worldsManager = new WorldsServerManager();
+
+		ServerWorldEvents.LOAD.register( (server, world) -> {
+			worldsManager.addLoadedWorld(world);
+		});
 	}
 }

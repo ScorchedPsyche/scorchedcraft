@@ -19,14 +19,6 @@ package com.github.scorchedpsyche.scorchedcraft.shared.worlds;
 public class WorldsShared {
     public WorldsShared()
     {
-        System.out.println("WorldsShared");
-        System.out.println("WorldsShared");
-        System.out.println("WorldsShared");
-        System.out.println("WorldsShared");
-        System.out.println("WorldsShared");
-        System.out.println("WorldsShared");
-        System.out.println("WorldsShared");
-        System.out.println("WorldsShared");
-        System.out.println("WorldsShared");
+        System.out.println("WORLDS SHARED");
     }
 }

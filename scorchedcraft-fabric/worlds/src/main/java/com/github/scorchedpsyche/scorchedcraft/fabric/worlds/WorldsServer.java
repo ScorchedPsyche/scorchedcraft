@@ -18,20 +18,12 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.worlds;
 
 import net.fabricmc.api.DedicatedServerModInitializer;
 
-public class WorldServer implements DedicatedServerModInitializer {
+public class WorldsServer implements DedicatedServerModInitializer {
     /**
      * Runs the mod initializer on the server environment.
      */
     @Override
     public void onInitializeServer() {
-        System.out.println("MESSAGE FROM SERVER");
-        System.out.println("MESSAGE FROM SERVER");
-        System.out.println("MESSAGE FROM SERVER");
-        System.out.println("MESSAGE FROM SERVER");
-        System.out.println("MESSAGE FROM SERVER");
-        System.out.println("MESSAGE FROM SERVER");
-        System.out.println("MESSAGE FROM SERVER");
-        System.out.println("MESSAGE FROM SERVER");
-        System.out.println("MESSAGE FROM SERVER");
+        System.out.println("WORLDS SERVER");
     }
 }

@@ -24,8 +24,6 @@ public class CoreServer implements DedicatedServerModInitializer {
      */
     @Override
     public void onInitializeServer() {
-        System.out.println("onInitializeServer");
-        System.out.println("onInitializeServer");
-        System.out.println("onInitializeServer");
+        System.out.println("CORE SERVER");
     }
 }

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.shared.core_shared;
+package com.github.scorchedpsyche.scorchedcraft.shared.core;
 
-public class Core_Shared {
-    public Core_Shared()
+public class CoreShared {
+    public CoreShared()
     {
-        System.out.println("CORE SHARED: onInitialize");
+        System.out.println("CORE SHARED");
     }
 }
