@@ -17,14 +17,22 @@ subprojects {
 	sourceCompatibility = JavaVersion.VERSION_16
 	targetCompatibility = JavaVersion.VERSION_16
 }
-task fabric_rebuild (){
-	dependsOn(':scorchedcraft-fabric:fabric_clean__modules')
+task fabric_build (){
+//	dependsOn(':scorchedcraft-fabric:fabric_clean__modules')
 
 	dependsOn(':scorchedcraft-fabric:core:build')
+	dependsOn(':scorchedcraft-fabric:portals:build')
 	dependsOn(':scorchedcraft-fabric:worlds:build')
 	doLast {
 		task copy_mods(type: Copy){
 //			def jars=[]
+			def destinationDirectory = file('..\\run\\mods')
+			mkdir ".out"
+			def destinationDirectory2 = file('.out')
+			println('Copying into:')
+			println(' -- ' + destinationDirectory)
+			println(' -- ' + destinationDirectory2)
+			println('\nFiles:')
 			subprojects.each {
 //				println '================= ' + it.name + ' ================='
 //				println '======== runtimeClasspath BEGIN ========'
@@ -36,14 +44,15 @@ task fabric_rebuild (){
 //				}
 //				println '======== runtimeClasspath END ========'
 				def originFile = '' + it.buildDir + '\\libs\\' + it.archives_base_name + '-' + it.getVersion() + '.jar'
-				def destinationDirectory = file('../run/mods')
-				def destinationDirectory2 = file('.out')
 
-				println('Copying ' + originFile)
+				println(' -- ' + originFile)
 
 				copy {
 					from(originFile)
 					into(destinationDirectory)
+				}
+				copy {
+					from(originFile)
 					into(destinationDirectory2)
 				}
 			}
@@ -52,14 +61,17 @@ task fabric_rebuild (){
 }
 
 task fabric_run__client (){
-	dependsOn(':scorchedcraft-fabric:fabric_rebuild')
+	dependsOn(':scorchedcraft-fabric:fabric_build')
 	finalizedBy ':scorchedcraft-fabric:core:runClient'
 }
 
 task fabric_clean__modules (){
 	dependsOn(':scorchedcraft-shared:core-shared:clean')
+	dependsOn(':scorchedcraft-shared:portals-shared:clean')
+	dependsOn(':scorchedcraft-shared:worlds-shared:clean')
 
 	dependsOn(':scorchedcraft-fabric:core:clean')
+	dependsOn(':scorchedcraft-fabric:portals:clean')
 	dependsOn(':scorchedcraft-fabric:worlds:clean')
 
 	println "Cleaning folders"

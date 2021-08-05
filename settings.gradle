@@ -14,10 +14,12 @@ include (
         // Shared
         'scorchedcraft-shared',
         'scorchedcraft-shared:core-shared',
+        'scorchedcraft-shared:portals-shared',
         'scorchedcraft-shared:worlds-shared',
 
         // Fabric
         'scorchedcraft-fabric',
         'scorchedcraft-fabric:core',
+        'scorchedcraft-fabric:portals',
         'scorchedcraft-fabric:worlds'
 )
