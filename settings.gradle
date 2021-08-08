@@ -11,11 +11,11 @@ pluginManagement {
 rootProject.name = 'scorchedcraft'
 
 include (
-        // Shared
-        'scorchedcraft-shared',
-        'scorchedcraft-shared:core-shared',
-        'scorchedcraft-shared:portals-shared',
-        'scorchedcraft-shared:worlds-shared',
+//        // Shared
+//        'scorchedcraft-shared',
+//        'scorchedcraft-shared:core-shared',
+//        'scorchedcraft-shared:portals-shared',
+//        'scorchedcraft-shared:worlds-shared',
 
         // Fabric
         'scorchedcraft-fabric',

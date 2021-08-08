@@ -1,10 +1,4 @@
-package com.github.scorchedpsyche.scorchedcraft.fabric.worlds.callback;
-
-import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
+package com.github.scorchedpsyche.scorchedcraft.fabric.worlds.callbacks;
 
 public interface OnWorldLoadCallback {
 //    Event<OnWorldLoadCallback> EVENT = EventFactory.createArrayBacked(OnWorldLoadCallback.class,

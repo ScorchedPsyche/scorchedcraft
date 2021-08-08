@@ -16,7 +16,6 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core;
 
-import com.github.scorchedpsyche.scorchedcraft.shared.core.CoreShared;
 import net.fabricmc.api.ModInitializer;
 
 public class Core implements ModInitializer {
@@ -26,6 +25,5 @@ public class Core implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		System.out.println("CORE");
-		CoreShared coreShared = new CoreShared();
 	}
 }

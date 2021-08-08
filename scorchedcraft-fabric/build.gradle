@@ -66,9 +66,9 @@ task fabric_run__client (){
 }
 
 task fabric_clean__modules (){
-	dependsOn(':scorchedcraft-shared:core-shared:clean')
-	dependsOn(':scorchedcraft-shared:portals-shared:clean')
-	dependsOn(':scorchedcraft-shared:worlds-shared:clean')
+//	dependsOn(':scorchedcraft-shared:core-shared:clean')
+//	dependsOn(':scorchedcraft-shared:portals-shared:clean')
+//	dependsOn(':scorchedcraft-shared:worlds-shared:clean')
 
 	dependsOn(':scorchedcraft-fabric:core:clean')
 	dependsOn(':scorchedcraft-fabric:portals:clean')

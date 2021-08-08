@@ -16,7 +16,7 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.worlds;
 
-import com.github.scorchedpsyche.scorchedcraft.shared.core.managers.server.WorldsServerManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.worlds.managers.WorldsServerManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 

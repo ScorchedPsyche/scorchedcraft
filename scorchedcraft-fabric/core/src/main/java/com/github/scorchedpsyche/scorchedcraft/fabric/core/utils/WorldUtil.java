@@ -1,9 +1,9 @@
-package com.github.scorchedpsyche.scorchedcraft.shared.core.util.minecraft;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils;
 
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public class WorldSharedUtil {
+public class WorldUtil {
     public class DayNightCycle
     {
         public static final long SUNRISE = 23992;

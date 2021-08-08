@@ -1,4 +1,4 @@
-package com.github.scorchedpsyche.scorchedcraft.shared.core.managers.server;
+package com.github.scorchedpsyche.scorchedcraft.fabric.worlds.managers;
 
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;

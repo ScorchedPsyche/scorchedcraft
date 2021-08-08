@@ -1,6 +1,6 @@
-package com.github.scorchedpsyche.scorchedcraft.shared.core.scorchedcraft;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft;
 
-public class PluginsScorchedCraftShared {
+public class ModsScorchedCraft {
     private static final String permission_prefix = "craftera_suite";
     public static class Name
     {
