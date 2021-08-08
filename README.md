@@ -1,15 +1,14 @@
-
 # ScorchedCraft
-Mod/plugin suite which aims to enhance Minecraft's gameplay experience while maintaining Vanilla feeling.
+Mod suite which aims to enhance Minecraft's gameplay experience while maintaining Vanilla feeling.
 
-All mod/plugins are being developed to use as little resources from the server as possible and asynchronous code will be used everywhere possible.
+All mod are being developed to use as little resources from the server as possible and asynchronous code will be used everywhere possible.
 
 ```diff
 - NOTICE: this suite is still in development! Usage in production at this moment is NOT recommended.
 - NOTICE: The reason is that there could be some quirks on the way things run and...
 - NOTICE: ...knowledge of them might be required to avoid issues.
 
-- NOTICE: Mod/plugin names are a work-in-progress and might change in the future.
+- NOTICE: Mod names are a work-in-progress and might change in the future.
   
 Once most features have been implemented I'll be running through the code to do a refactor for production usage.
 ```
