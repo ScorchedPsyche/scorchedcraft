@@ -17,13 +17,22 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.core;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ActionResult;
 
 public class Core implements ModInitializer {
+	public static MinecraftServer server;
+	
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		System.out.println("CORE");
+		ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
+			Core.server = server;
+		});
 	}
 }

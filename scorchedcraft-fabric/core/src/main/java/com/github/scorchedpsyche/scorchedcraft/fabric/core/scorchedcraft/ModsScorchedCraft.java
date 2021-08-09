@@ -1,7 +1,9 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft;
 
 public class ModsScorchedCraft {
+    public static final boolean debug_mode = true;
     private static final String permission_prefix = "craftera_suite";
+
     public static class Name
     {
         public static final String compact = "CES";
@@ -36,6 +38,16 @@ public class ModsScorchedCraft {
 
         public static class Permissions {
             public static final String core = permission_prefix + ".core";
+        }
+    }
+    
+    public static class Portals
+    {
+        public static class Name
+        {
+            public static final String compact = "CES - Portals";
+            public static final String full = "CraftEra Suite - Portals";
+            public static final String pomXml = "craftera_suite-portals";
         }
     }
 }

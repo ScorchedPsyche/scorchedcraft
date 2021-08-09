@@ -1,9 +1,26 @@
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft;
 
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class WorldUtil {
+    public static void sendMessageToAllPlayersInWorld(World world, String message)
+    {
+        for( PlayerEntity player : world.getPlayers() )
+        {
+            PlayerUtil.sendMessage( player, message );
+        }
+    }
+    public static void sendMessageToAllPlayersInWorld(World world, StringFormattedModel message)
+    {
+        for( PlayerEntity player : world.getPlayers() )
+        {
+            PlayerUtil.sendMessage( player, message );
+        }
+    }
+    
     public class DayNightCycle
     {
         public static final long SUNRISE = 23992;
