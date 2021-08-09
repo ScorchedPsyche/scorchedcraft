@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "scorchedcraft-template",
+  "id": "scorchedcraft-portals",
   "version": "${version}",
 
-  "name": "ScorchedCraft - TEMPLATE",
-  "description": "This is a template.",
+  "name": "ScorchedCraft - Portals",
+  "description": "Allows custom portals.",
   "authors": [
     "ScorchedPsyche"
   ],
@@ -14,16 +14,16 @@
   },
 
   "license": "Apache-2.0",
-  "icon": "assets/scorchedcraft-template/icon.png",
+  "icon": "assets/scorchedcraft-portals/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.scorchedpsyche.scorchedcraft.fabric.template.Template"
+      "com.github.scorchedpsyche.scorchedcraft.fabric.portals.Portals"
     ]
   },
   "mixins": [
-    "scorchedcraft-template.mixins.json"
+    "scorchedcraft-portals.mixins.json"
   ],
 
   "depends": {

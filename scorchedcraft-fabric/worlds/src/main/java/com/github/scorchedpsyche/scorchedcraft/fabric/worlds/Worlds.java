@@ -18,7 +18,11 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.worlds;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.worlds.managers.WorldsServerManager;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.TypedActionResult;
 
 public class Worlds implements ModInitializer {
 	WorldsServerManager worldsManager = new WorldsServerManager();
@@ -34,6 +38,9 @@ public class Worlds implements ModInitializer {
 		worldsManager = new WorldsServerManager();
 
 		ServerWorldEvents.LOAD.register( (server, world) -> {
+			System.out.println("WORLDS: World loaded: " + world.asString());
+			System.out.println("WORLDS: World loaded: " + world.getRegistryKey());
+			System.out.println("WORLDS: World loaded: " + world.toServerWorld().getDimension());
 			worldsManager.addLoadedWorld(world);
 		});
 	}
