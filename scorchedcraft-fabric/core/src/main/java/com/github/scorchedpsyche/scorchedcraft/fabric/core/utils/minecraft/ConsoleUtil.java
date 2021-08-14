@@ -4,10 +4,10 @@ import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormatte
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.StringUtil;
 
 public class ConsoleUtil {
-    private static final String defaultPrefix = "CraftEra Suite";
+    private static final String defaultPrefix = "ScorchedCraft";
     
     /**
-     * Logs a debug message (aqua colored) to the console with default prefix (CraftEra Suite).
+     * Logs a debug message (aqua colored) to the console with default prefix (ScorchedCraft).
      * @param message Message to the written to the console
      */
     public static void debugMessage(String message)
@@ -17,22 +17,22 @@ public class ConsoleUtil {
     
     /**
      * Logs a debug message (aqua colored) to the console with a plugin's prefix.
-     * @param pluginPrefixName The prefix for the plugin
+     * @param modPrefixName The prefix for the plugin
      * @param message Message to the written to the console
      */
-    public static void debugMessage(String pluginPrefixName, String message)
+    public static void debugMessage(String modPrefixName, String message)
     {
         System.out.println( new StringFormattedModel()
-                .aqua("[").nl().add(validCustomPrefixOrDefault(pluginPrefixName)).add("] DEBUG: ")
+                .aqua("[").nl().add(validCustomPrefixOrDefault(modPrefixName)).add("] DEBUG: ")
                 .add(message).nl().reset()
             .toString() );
 //        Bukkit.getConsoleSender().sendMessage(
-//            ChatColor.AQUA + "\n[" + validCustomPrefixOrDefault(pluginPrefixName) +
+//            ChatColor.AQUA + "\n[" + validCustomPrefixOrDefault(modPrefixName) +
 //                "] DEBUG: " + message + "\n" + ChatColor.RESET);
     }
     
     /**
-     * Logs an error (red colored) to the console with default prefix (CraftEra Suite).
+     * Logs an error (red colored) to the console with default prefix (ScorchedCraft).
      * @param message Message to the written to the console
      */
     public static void logError(String message)
@@ -42,20 +42,20 @@ public class ConsoleUtil {
     
     /**
      * Logs an error (red colored) to the console with a plugin's prefix.
-     * @param pluginPrefixName The prefix for the plugin
+     * @param modPrefixName The prefix for the plugin
      * @param message Message to the written to the console
      */
-    public static void logError(String pluginPrefixName, String message)
+    public static void logError(String modPrefixName, String message)
     {
 //        StringFormattedModel errorStr = new StringFormattedModel()
-//            .red("\n[").add(validCustomPrefixOrDefault(pluginPrefixName)).add("] ERROR: " ).nl().nl()
+//            .red("\n[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ERROR: " ).nl().nl()
 //            .add(message).reset().nl();
         System.out.println( new StringFormattedModel()
-            .red("\n[").add(validCustomPrefixOrDefault(pluginPrefixName)).add("] ERROR: " ).nl().nl()
+            .red("\n[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ERROR: " ).nl().nl()
             .add(message).nl().reset()
             .toString() );
 //        Bukkit.getConsoleSender().sendMessage(
-//                ChatColor.RED + "\n[" + validCustomPrefixOrDefault(pluginPrefixName) +
+//                ChatColor.RED + "\n[" + validCustomPrefixOrDefault(modPrefixName) +
 //                        "] ERROR: " + message + "\n" + ChatColor.RESET);
     }
     
@@ -79,20 +79,20 @@ public class ConsoleUtil {
      * @param sql SQL statement that triggered the exception
      * @param sqlMessage The debug error returned from the driver
      */
-    public static void logErrorSQLWithPluginPrefix(String pluginPrefixName, String method, String sql, String sqlMessage)
+    public static void logErrorSQLWithPluginPrefix(String modPrefixName, String method, String sql, String sqlMessage)
     {
         System.out.println( new StringFormattedModel()
-            .red("\n[").add(validCustomPrefixOrDefault(pluginPrefixName)).add("] ERROR executing SQL for method")
+            .red("\n[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ERROR executing SQL for method")
             .add(method).add(": " ).nl().nl().add(sql).nl().nl().add(sqlMessage)
             .toString() );
 //        StringFormattedModel errorStr = new StringFormattedModel()
-//            .red("\n[").add(validCustomPrefixOrDefault(pluginPrefixName)).add("] ERROR executing SQL for method")
+//            .red("\n[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ERROR executing SQL for method")
 //            .add(method).add(": " ).nl().nl().add(sql).nl().nl().add(sqlMessage);
 //        Bukkit.getConsoleSender().sendMessage(errorStr.toString());
     }
     
     /**
-     * Logs a warning (yellow colored) to the console with default prefix (CraftEra Suite).
+     * Logs a warning (yellow colored) to the console with default prefix (ScorchedCraft).
      * @param message Message to the written to the console
      */
     public static void logWarning(String message)
@@ -102,22 +102,22 @@ public class ConsoleUtil {
     
     /**
      * Logs a warning (yellow colored) to the console with a plugin's prefix.
-     * @param pluginPrefixName The prefix for the plugin
+     * @param modPrefixName The prefix for the plugin
      * @param message Message to the written to the console
      */
-    public static void logWarning(String pluginPrefixName, String message)
+    public static void logWarning(String modPrefixName, String message)
     {
         System.out.println( new StringFormattedModel()
-            .yellow().nl().add(validCustomPrefixOrDefault(pluginPrefixName)).add("] WARNING: ")
+            .yellow().nl().add(validCustomPrefixOrDefault(modPrefixName)).add("] WARNING: ")
             .add(message).nl().reset()
             .toString() );
 //        Bukkit.getConsoleSender().sendMessage(
-//            ChatColor.YELLOW + "\n[" + validCustomPrefixOrDefault(pluginPrefixName) +
+//            ChatColor.YELLOW + "\n[" + validCustomPrefixOrDefault(modPrefixName) +
 //                "] WARNING: " + message + "\n" + ChatColor.RESET);
     }
     
     /**
-     * Logs a success (green colored) to the console with default prefix (CraftEra Suite).
+     * Logs a success (green colored) to the console with default prefix (ScorchedCraft).
      * @param message Message to the written to the console
      */
     public static void logSuccess(String message)
@@ -127,22 +127,22 @@ public class ConsoleUtil {
     
     /**
      * Logs a success (green colored) to the console with a plugin's prefix.
-     * @param pluginPrefixName The prefix for the plugin
+     * @param modPrefixName The prefix for the plugin
      * @param message Message to the written to the console
      */
-    public static void logSuccess(String pluginPrefixName, String message)
+    public static void logSuccess(String modPrefixName, String message)
     {
         System.out.println( new StringFormattedModel()
-            .green().nl().add(validCustomPrefixOrDefault(pluginPrefixName)).add("] SUCCESS: ")
+            .green().nl().add(validCustomPrefixOrDefault(modPrefixName)).add("] SUCCESS: ")
             .add(message).nl().reset()
             .toString() );
 //        Bukkit.getConsoleSender().sendMessage(
-//            ChatColor.GREEN + "\n[" + validCustomPrefixOrDefault(pluginPrefixName) +
+//            ChatColor.GREEN + "\n[" + validCustomPrefixOrDefault(modPrefixName) +
 //                "] SUCCESS: " + message + "\n" + ChatColor.RESET);
     }
     
     /**
-     * Logs a message (no color) to the console with default prefix (CraftEra Suite).
+     * Logs a message (no color) to the console with default prefix (ScorchedCraft).
      * @param message Message to the written to the console
      */
     public static void logMessage(String message)
@@ -152,15 +152,15 @@ public class ConsoleUtil {
     
     /**
      * Logs a message (no color) to the console with a plugin's prefix.
-     * @param pluginPrefixName The prefix for the plugin
+     * @param modPrefixName The prefix for the plugin
      * @param message Message to the written to the console
      */
-    public static void logMessage(String pluginPrefixName, String message)
+    public static void logMessage(String modPrefixName, String message)
     {
         System.out.println( new StringFormattedModel()
-                .add("[").add(validCustomPrefixOrDefault(pluginPrefixName)).add("]").add(message)
+                .add("[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ").add(message)
             .toString() );
-//        Bukkit.getConsoleSender().sendMessage("[" + validCustomPrefixOrDefault(pluginPrefixName) + "] " + message);
+//        Bukkit.getConsoleSender().sendMessage("[" + validCustomPrefixOrDefault(modPrefixName) + "] " + message);
     }
     
     private static String validCustomPrefixOrDefault(String pluginPrefixName)

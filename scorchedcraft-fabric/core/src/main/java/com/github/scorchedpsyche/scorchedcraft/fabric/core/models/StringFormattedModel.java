@@ -34,6 +34,13 @@ public class StringFormattedModel {
 
         return this;
     }
+    public StringFormattedModel black(int str)
+    {
+        stringBuilder.append("§0");
+        add(str);
+        
+        return this;
+    }
     public StringFormattedModel blackR(String str)
     {
         stringBuilder.append("§0");
@@ -146,7 +153,14 @@ public class StringFormattedModel {
 
         return this;
     }
-
+    
+    public StringFormattedModel gold(int str)
+    {
+        stringBuilder.append("§6");
+        add(str);
+        
+        return this;
+    }
     public StringFormattedModel gold(String str)
     {
         stringBuilder.append("§6");
@@ -169,6 +183,13 @@ public class StringFormattedModel {
 
         return this;
     }
+    public StringFormattedModel gray(int str)
+    {
+        stringBuilder.append("§7");
+        add(str);
+        
+        return this;
+    }
     public StringFormattedModel grayR(String str)
     {
         stringBuilder.append("§7");
@@ -180,6 +201,13 @@ public class StringFormattedModel {
     public StringFormattedModel green()
     {
         stringBuilder.append("§a");
+        
+        return this;
+    }
+    public StringFormattedModel green(int str)
+    {
+        stringBuilder.append("§a");
+        add(str);
         
         return this;
     }
@@ -219,7 +247,14 @@ public class StringFormattedModel {
 
         return this;
     }
-
+    
+    public StringFormattedModel MinecoinGold(int str)
+    {
+        stringBuilder.append("§g");
+        add(str);
+        
+        return this;
+    }
     public StringFormattedModel MinecoinGold(String str)
     {
         stringBuilder.append("§g");
@@ -240,6 +275,14 @@ public class StringFormattedModel {
         stringBuilder.append("§c");
         add(str);
 
+        return this;
+    }
+    
+    public StringFormattedModel red(int str)
+    {
+        stringBuilder.append("§c");
+        add(str);
+        
         return this;
     }
     public StringFormattedModel redR(String str)

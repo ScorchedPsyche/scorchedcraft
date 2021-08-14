@@ -1,9 +1,15 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class WorldUtil {
     public static void sendMessageToAllPlayersInWorld(World world, String message)
@@ -68,5 +74,42 @@ public class WorldUtil {
             // Use raining time
             return world.getTime() == DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END;
         }
+    }
+    
+    public static boolean isBlockFromPositionEqualToBlock(BlockPos blockPos, Block block, World world)
+    {
+        if (world.testBlockState(blockPos, neighbor -> neighbor.isOf(block))) {
+//            ServerUtil.sendMessageToAllPlayers(new StringFormattedModel().green(blockPos.toString()));
+            return true;
+        }
+        
+        return false;
+    }
+    
+    @Nullable
+    public static BlockPos returnBlockPositionIfEqualToBlock(BlockPos blockPos, Block block, World world)
+    {
+        if (world.testBlockState(blockPos, neighbor -> neighbor.isOf(block))) {
+            ServerUtil.sendMessageToAllPlayers(new StringFormattedModel().green(blockPos.toString()));
+            return blockPos;
+        }
+        
+        return blockPos;
+    }
+    
+    public static boolean isBlockPosAir(BlockPos blockPos, World world)
+    {
+       return world.testBlockState( blockPos, block -> block.getBlock().equals(Blocks.AIR) );
+    }
+    
+    public static boolean isBlockFaceAirFromHitResult(BlockHitResult hitResult, World world)
+    {
+        return world.testBlockState(
+            hitResult.getBlockPos().add(hitResult.getSide().getVector()),
+            block -> block.getBlock().equals(Blocks.AIR ) );
+    }
+    public static boolean isBlockPosEqual(BlockPos blockPos, Block blockToCompare, World world)
+    {
+        return world.testBlockState( blockPos, block -> block.getBlock().equals(blockToCompare) );
     }
 }
