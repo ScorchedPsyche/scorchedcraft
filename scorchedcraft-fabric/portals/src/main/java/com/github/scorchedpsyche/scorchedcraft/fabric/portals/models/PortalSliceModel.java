@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.portals.utils;
+package com.github.scorchedpsyche.scorchedcraft.fabric.portals.models;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.portals.managers.PortalManager;
-import com.github.scorchedpsyche.scorchedcraft.fabric.portals.models.PortalModel;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Position;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
 
-public class PortalUtil {
+import java.util.HashMap;
+import java.util.Map;
+
+public class PortalSliceModel {
+    private PortalManager.State state = PortalManager.State.UNCHECKED;
+    private PortalManager.Orientation orientation;
+    private PortalConnectionsModel connections;
+    private Map<BlockPos, PortalBlockModel> visitedBlocks = new HashMap<>();
+    
+    public int getNbrOfValidDirections()
+    {
+        return this.connections.getNumberOfValidConnections();
+    }
+    
+    public PortalConnectionsModel getConnections()
+    {
+        return this.connections;
+    }
 }

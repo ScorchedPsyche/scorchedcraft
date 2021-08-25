@@ -16,18 +16,12 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.portals;
 
+import com.github.scorchedpsyche.scorchedcraft.fabric.portals.managers.CustomBlocksManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.portals.managers.PortalManager;
-import com.github.scorchedpsyche.scorchedcraft.fabric.portals.utils.PortalUtil;
-import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.event.player.UseEntityCallback;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.TypedActionResult;
 
 public class Portals implements ModInitializer {
 	public PortalManager portalManager;
@@ -40,6 +34,9 @@ public class Portals implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		System.out.println("PORTALS");
+		
+		CustomBlocksManager.registerCustomBlocks();
+		
 		this.portalManager = new PortalManager();
 
 		ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
@@ -50,14 +47,15 @@ public class Portals implements ModInitializer {
 //				return TypedActionResult.pass(ItemStack.EMPTY);
 //			});
 			UseBlockCallback.EVENT.register( (player, world, hand, hitResult) -> {
-				if( !world.isClient() )
+				if( world.isClient() )
 				{
 					System.out.println("PORTALS SERVER: UseEntityCallback");
-					portalManager.detectNewPortalAtReturnSuccess(player, world, hand, hitResult);
+					portalManager.searchNewPortalFromBlockAndReturnSuccess(player, world, hand, hitResult);
 				}
 
 				return ActionResult.PASS;
 			});
+			
 //			UseEntityCallback.EVENT.register( (player, world, hand, entity, hitResult) -> {
 //				if( !world.isClient() )
 //				{

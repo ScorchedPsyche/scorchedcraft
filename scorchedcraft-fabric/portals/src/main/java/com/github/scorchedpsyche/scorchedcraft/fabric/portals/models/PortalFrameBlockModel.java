@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.mixin;
+package com.github.scorchedpsyche.scorchedcraft.fabric.portals.models;
 
-import net.minecraft.client.render.BufferBuilderStorage;
-import net.minecraft.client.render.WorldRenderer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import net.minecraft.block.Block;
+import net.minecraft.util.math.BlockPos;
 
-@Mixin(WorldRenderer.class)
-public interface WorldRendererAccessor {
-    @Accessor
-    BufferBuilderStorage getBufferBuilders();
+public class PortalFrameBlockModel {
+    public PortalFrameBlockModel(BlockPos blockPos, double distanceFromStartingBlock)
+    {
+        this.blockPos = blockPos;
+        this.distanceFromStartingBlock = distanceFromStartingBlock;
+    }
+    
+    private BlockPos blockPos;
+    private double distanceFromStartingBlock;
+    
+    public double getDistanceFromStartingBlock() {
+        return distanceFromStartingBlock;
+    }
 }

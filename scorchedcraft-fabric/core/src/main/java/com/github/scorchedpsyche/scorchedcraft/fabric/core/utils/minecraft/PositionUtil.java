@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.mixin;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft;
 
-import net.minecraft.client.render.BufferBuilderStorage;
-import net.minecraft.client.render.WorldRenderer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.MathUtil;
+import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
 
-@Mixin(WorldRenderer.class)
-public interface WorldRendererAccessor {
-    @Accessor
-    BufferBuilderStorage getBufferBuilders();
+public class PositionUtil {
+    public static double distanceBetweenPositions(@NotNull BlockPos p1, @NotNull BlockPos p2)
+    {
+        return MathUtil.distanceBetween3dCoordinates( p1.getX(), p1.getY(), p1.getZ(), p2.getX(), p2.getY(), p2.getZ() );
+    }
 }

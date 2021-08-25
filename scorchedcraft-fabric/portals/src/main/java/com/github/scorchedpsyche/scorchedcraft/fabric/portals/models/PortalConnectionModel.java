@@ -14,21 +14,33 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.portals.utils;
+package com.github.scorchedpsyche.scorchedcraft.fabric.portals.models;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.portals.managers.PortalManager;
-import com.github.scorchedpsyche.scorchedcraft.fabric.portals.models.PortalModel;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Position;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.util.math.Direction;
 
-public class PortalUtil {
+public class PortalConnectionModel {
+    public enum State {
+        UNCHECKED,
+        INVALID,
+        VALID
+    }
+    private int distanceToFrame = -1;
+    private State state = State.UNCHECKED;
+    
+    public State getState() {
+        return state;
+    }
+    public int getDistanceToFrame() {
+        return distanceToFrame;
+    }
+    public void setAsValid(int distantToFrameFromThisBlock)
+    {
+        this.state = State.VALID;
+        this.distanceToFrame = distantToFrameFromThisBlock;
+    }
+    public void setAsInvalid()
+    {
+        this.state = State.INVALID;
+    }
 }
