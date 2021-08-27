@@ -339,7 +339,7 @@ public class PortalBuilder {
                     portal++;
                 }
                 case AIR -> {
-                    DebugRenderer.blocksOnlyFaces.putIfAbsent(entry.getKey(), new RGBAModel(0, 255, 255, 0.1F));
+                    DebugRenderer.blocksOnlyFaces.putIfAbsent(entry.getKey(), new RGBAModel(0, 255, 255, 0.2F));
                     air++;
                 }
                 case UNCHECKED -> {
