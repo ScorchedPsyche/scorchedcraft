@@ -18,22 +18,22 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft;
 
 public class ModsScorchedCraft {
     public static final boolean debug_mode = true;
-    private static final String permission_prefix = "craftera_suite";
+    private static final String permission_prefix = "scorchedcraft";
 
     public static class Name
     {
-        public static final String compact = "CES";
-        public static final String full = "CraftEra Suite";
-        public static final String pomXml = "craftera_suite";
+        public static final String compact = "SC";
+        public static final String full = "ScorchedCraft";
+        public static final String pomXml = "scorchedcraft";
     }
 
     public static abstract class Core
     {
         public static class Name
         {
-            public static final String compact = "CES - Core";
-            public static final String full = "CraftEra Suite - Core";
-            public static final String pomXml = "craftera_suite-core";
+            public static final String compact = "SC - Core";
+            public static final String full = "ScorchedCraft - Core";
+            public static final String pomXml = "scorchedcraft-core";
         }
 
         public abstract boolean isEnabled ();
@@ -61,9 +61,9 @@ public class ModsScorchedCraft {
     {
         public static class Name
         {
-            public static final String compact = "CES - Portals";
-            public static final String full = "CraftEra Suite - Portals";
-            public static final String pomXml = "craftera_suite-portals";
+            public static final String compact = "SC - Portals";
+            public static final String full = "ScorchedCraft - Portals";
+            public static final String pomXml = "scorchedcraft-portals";
         }
     }
 }

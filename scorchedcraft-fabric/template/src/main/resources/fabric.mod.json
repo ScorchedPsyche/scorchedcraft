@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "scorchedcraft-portals",
+  "id": "scorchedcraft-template",
   "version": "${version}",
 
-  "name": "ScorchedCraft - Portals",
-  "description": "Enables custom portals for your server.",
+  "name": "ScorchedCraft - Template",
+  "description": "Mod template for copy paste.",
   "authors": [
     "ScorchedPsyche"
   ],
@@ -14,22 +14,22 @@
   },
 
   "license": "Apache-2.0",
-  "icon": "assets/scorchedcraft-portals/icon.png",
+  "icon": "assets/scorchedcraft-template/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.scorchedpsyche.scorchedcraft.fabric.portals.Portals"
+      "com.github.scorchedpsyche.scorchedcraft.fabric.template.Template"
     ]
   },
   "mixins": [
-    "scorchedcraft-portals.mixins.json"
+    "scorchedcraft-template.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
-    "minecraft": "1.17.x",
+    "minecraft": ">=1.18-alpha.21.43.a",
     "java": ">=16",
 
     "scorchedcraft-core": ">=0.0.1"

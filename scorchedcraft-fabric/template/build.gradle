@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'java-library'
 }
 
@@ -64,16 +64,16 @@ java {
 }
 
 jar {
-	from {
-		configurations
-				.runtimeClasspath
-				.collect {
-					if(it.name.contains("worlds__shared")) {
-						println('ZIPPED: ' + it.path)
-						zipTree(it)
-					}
-				}
-	}
+//	from {
+//		configurations
+//				.runtimeClasspath
+//				.collect {
+//					if(it.name.contains("worlds__shared")) {
+//						println('ZIPPED: ' + it.path)
+//						zipTree(it)
+//					}
+//				}
+//	}
 
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
