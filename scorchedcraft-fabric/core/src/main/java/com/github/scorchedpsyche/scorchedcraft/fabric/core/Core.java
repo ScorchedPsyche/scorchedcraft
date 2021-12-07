@@ -16,21 +16,28 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core;
 
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.database.DatabaseManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ActionResult;
 
 public class Core implements ModInitializer {
 	public static MinecraftServer server;
+	public DatabaseManager databaseManager;
 	
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		System.out.println("CORE");
+		
+		// Display console ScorchedCraft logo
+		ConsoleUtil.logMessage("    __   " + " __  " );
+		ConsoleUtil.logMessage("   |__   " + "|  " + "    ScorchedCraft");
+		ConsoleUtil.logMessage("    __|  " + "|__  " + "      Suite");
+		ConsoleUtil.logMessage("");
+		
 		ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
 			Core.server = server;
 		});
