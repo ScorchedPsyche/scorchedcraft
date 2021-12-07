@@ -91,7 +91,7 @@ public class FolderUtil {
             return suiteRootFolder;
         }
         
-        String suiteFolderPathString = null;
+        String suiteFolderPathString;
     
         try {
             if( isDirectoryValid( configFolder ) )
@@ -100,14 +100,14 @@ public class FolderUtil {
     
                 suiteRootFolder = new File(suiteFolderPathString);
     
-                if( suiteRootFolder.mkdir() )
+                if( suiteRootFolder.exists() || suiteRootFolder.mkdir() )
                 {
                     return suiteRootFolder;
                 } else {
                     printFolderCreationErrorToConsole(suiteRootFolder.getCanonicalPath());
                 }
             }
-            
+    
             printFolderCreationErrorToConsole(configFolder.getCanonicalPath());
         } catch (IOException e) {
         e.printStackTrace();
