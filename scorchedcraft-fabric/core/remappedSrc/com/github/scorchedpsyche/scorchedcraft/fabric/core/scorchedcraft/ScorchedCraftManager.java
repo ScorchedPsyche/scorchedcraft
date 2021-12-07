@@ -16,7 +16,7 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft;
 
-public class ModsScorchedCraft {
+public class ScorchedCraftManager {
     public static final boolean debug_mode = true;
     private static final String permission_prefix = "scorchedcraft";
 
@@ -64,6 +64,47 @@ public class ModsScorchedCraft {
             public static final String compact = "SC - Portals";
             public static final String full = "ScorchedCraft - Portals";
             public static final String pomXml = "scorchedcraft-portals";
+        }
+    }
+    
+    public static class Seasons
+    {
+        public static class Name
+        {
+            public static final String compact = "CES - Seasons";
+            public static final String full = "CraftEra Suite - Seasons";
+            public static final String pomXml = "craftera_suite-seasons";
+        }
+        
+        public enum Status
+        {
+            Inactive,
+            Active,
+            Started,
+            Finished,
+            Archived
+        }
+        
+        public static class Permissions {
+            public static final String seasons = permission_prefix + ".seasons";
+        }
+    }
+    
+    public static class SpectatorMode
+    {
+        public static class Name
+        {
+            public static final String compact = "CES - Spectator Mode";
+            public static final String full = "CraftEra Suite - Spectator Mode";
+            public static final String pomXml = "craftera_suite-spectator_mode";
+        }
+        
+        public static class Task
+        {
+            public static class ProcessPlayersInSpectator
+            {
+                public static final long period = 5L;
+            }
         }
     }
 }

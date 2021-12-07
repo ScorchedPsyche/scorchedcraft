@@ -16,7 +16,7 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.models;
 
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ModsScorchedCraft;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 
 import java.sql.ResultSet;
@@ -74,7 +74,7 @@ public class MessageModel {
             return this;
         } catch (SQLException e)
         {
-            ConsoleUtil.logError( ModsScorchedCraft.Core.Name.full, "Failed to messages from ResultSet. TRACE:");
+            ConsoleUtil.logError( ScorchedCraftManager.Core.Name.full, "Failed to messages from ResultSet. TRACE:");
             e.printStackTrace();
         }
         

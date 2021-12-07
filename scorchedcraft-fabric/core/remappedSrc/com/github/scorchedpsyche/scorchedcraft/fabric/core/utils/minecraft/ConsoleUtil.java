@@ -38,13 +38,8 @@ public class ConsoleUtil {
      */
     public static void debugMessage(String modPrefixName, String message)
     {
-        System.out.println( new StringFormattedModel()
-                .aqua("[").nl().add(validCustomPrefixOrDefault(modPrefixName)).add("] DEBUG: ")
-                .add(message).nl().reset()
-            .toString() );
-//        Bukkit.getConsoleSender().sendMessage(
-//            ChatColor.AQUA + "\n[" + validCustomPrefixOrDefault(modPrefixName) +
-//                "] DEBUG: " + message + "\n" + ChatColor.RESET);
+        System.out.println("\n[" + validCustomPrefixOrDefault(modPrefixName) + "] DEBUG: " +
+            message + "\n");
     }
     
     /**
@@ -63,16 +58,8 @@ public class ConsoleUtil {
      */
     public static void logError(String modPrefixName, String message)
     {
-//        StringFormattedModel errorStr = new StringFormattedModel()
-//            .red("\n[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ERROR: " ).nl().nl()
-//            .add(message).reset().nl();
-        System.out.println( new StringFormattedModel()
-            .red("\n[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ERROR: " ).nl().nl()
-            .add(message).nl().reset()
-            .toString() );
-//        Bukkit.getConsoleSender().sendMessage(
-//                ChatColor.RED + "\n[" + validCustomPrefixOrDefault(modPrefixName) +
-//                        "] ERROR: " + message + "\n" + ChatColor.RESET);
+        System.out.println("\n[" + validCustomPrefixOrDefault(modPrefixName) + "] ERROR: \n\n" +
+            message + "\n");
     }
     
     /**
@@ -82,12 +69,7 @@ public class ConsoleUtil {
      */
     public static void logErrorSQL(String sql, String sqlMessage)
     {
-        System.out.println( new StringFormattedModel()
-            .red("\n[").add(defaultPrefix).add("] ERROR executing SQL: " ).nl().nl().add(sql).nl().nl().add(sqlMessage)
-            .toString() );
-//        StringFormattedModel errorStr = new StringFormattedModel()
-//            .red("\n[").add(defaultPrefix).add("] ERROR executing SQL: " ).nl().nl().add(sql).nl().nl().add(sqlMessage);
-//        Bukkit.getConsoleSender().sendMessage(errorStr.toString());
+        System.out.println("\n[" + defaultPrefix + "] ERROR executing SQL: \n\n" + sql + "\n\n" + sqlMessage);
     }
     
     /**
@@ -97,14 +79,8 @@ public class ConsoleUtil {
      */
     public static void logErrorSQLWithPluginPrefix(String modPrefixName, String method, String sql, String sqlMessage)
     {
-        System.out.println( new StringFormattedModel()
-            .red("\n[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ERROR executing SQL for method")
-            .add(method).add(": " ).nl().nl().add(sql).nl().nl().add(sqlMessage)
-            .toString() );
-//        StringFormattedModel errorStr = new StringFormattedModel()
-//            .red("\n[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ERROR executing SQL for method")
-//            .add(method).add(": " ).nl().nl().add(sql).nl().nl().add(sqlMessage);
-//        Bukkit.getConsoleSender().sendMessage(errorStr.toString());
+        System.out.println("\n[" + validCustomPrefixOrDefault(modPrefixName) + "] ERROR executing SQL for method" +
+            method + ": \n\n" + sql + "\n\n" + sqlMessage);
     }
     
     /**
@@ -123,13 +99,8 @@ public class ConsoleUtil {
      */
     public static void logWarning(String modPrefixName, String message)
     {
-        System.out.println( new StringFormattedModel()
-            .yellow().nl().add(validCustomPrefixOrDefault(modPrefixName)).add("] WARNING: ")
-            .add(message).nl().reset()
-            .toString() );
-//        Bukkit.getConsoleSender().sendMessage(
-//            ChatColor.YELLOW + "\n[" + validCustomPrefixOrDefault(modPrefixName) +
-//                "] WARNING: " + message + "\n" + ChatColor.RESET);
+        System.out.println("\n" + validCustomPrefixOrDefault(modPrefixName) + "] WARNING: " +
+            message + "\n");
     }
     
     /**
@@ -148,13 +119,8 @@ public class ConsoleUtil {
      */
     public static void logSuccess(String modPrefixName, String message)
     {
-        System.out.println( new StringFormattedModel()
-            .green().nl().add(validCustomPrefixOrDefault(modPrefixName)).add("] SUCCESS: ")
-            .add(message).nl().reset()
-            .toString() );
-//        Bukkit.getConsoleSender().sendMessage(
-//            ChatColor.GREEN + "\n[" + validCustomPrefixOrDefault(modPrefixName) +
-//                "] SUCCESS: " + message + "\n" + ChatColor.RESET);
+        System.out.println("\n" + validCustomPrefixOrDefault(modPrefixName) + "] SUCCESS: " +
+            message + "\n");
     }
     
     /**
@@ -173,10 +139,7 @@ public class ConsoleUtil {
      */
     public static void logMessage(String modPrefixName, String message)
     {
-        System.out.println( new StringFormattedModel()
-                .add("[").add(validCustomPrefixOrDefault(modPrefixName)).add("] ").add(message)
-            .toString() );
-//        Bukkit.getConsoleSender().sendMessage("[" + validCustomPrefixOrDefault(modPrefixName) + "] " + message);
+        System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] " + message);
     }
     
     private static String validCustomPrefixOrDefault(String pluginPrefixName)

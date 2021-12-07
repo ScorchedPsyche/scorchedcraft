@@ -16,17 +16,18 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.seasons;
 
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.FolderUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.seasons.main.SeasonManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.seasons.main.SeasonsDatabaseApi;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
-
-import java.io.File;
+import net.minecraft.util.Identifier;
 
 public class Seasons implements ModInitializer {
 	public static SeasonManager seasonManager;
-	public static File moduleFolder;
 	
 	private SeasonsDatabaseApi seasonsDatabaseApi;
 	
@@ -37,13 +38,11 @@ public class Seasons implements ModInitializer {
 	 */
 	@Override
 	public void onInitialize() {
-		System.out.println("SEASONS");
-		
 		// Attempt to setup the rest of the plugin
 		seasonsDatabaseApi = new SeasonsDatabaseApi();
 		
-		moduleFolder = FolderUtil.getOrCreateModuleSubfolder(ScorchedCraftManager.Seasons.Name.pomXml);
-//		ConsoleUtil.debugMessage(FolderUtil.getOrCreateSuiteSubfolder().toString());
+		
+		ConsoleUtil.debugMessage(FolderUtil.getOrCreateSuiteSubfolder().toString());
 		
 //		// Setup and verify DB tables
 //		if( seasonsDatabaseApi.setupAndVerifySqlTable() )
