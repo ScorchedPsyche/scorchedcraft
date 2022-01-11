@@ -23,14 +23,69 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 public class ResourcesUtil {
-    public ResourcesUtil(String pluginPrefix)
+    public ResourcesUtil(String pluginPrefix, File moduleFolder, ClassLoader classLoader)
     {
         this.pluginPrefix = pluginPrefix;
+        this.moduleFolder = moduleFolder;
+        this.classLoader = classLoader;
     }
     
     String pluginPrefix;
+    File moduleFolder;
+    ClassLoader classLoader;
+    
+    public boolean copyToModuleConfigFolderIfNotExists(ArrayList<String> resourcePaths)
+    {
+        // Loops through resources list
+        for (String resourcePath : resourcePaths)
+        {
+            String filePath = resourcePath.replace("files/", "");
+            File destinationFile = new File(this.moduleFolder + File.separator + filePath);
+            
+            // Check if file already exists
+            if( !destinationFile.exists() )
+            {
+                // File must be copied. Check if parent folder exists
+                if( !destinationFile.getParentFile().exists() )
+                {
+                    // Parent must be created. Attempt to create
+                    if( !destinationFile.getParentFile().mkdirs() )
+                    {
+                        // Folder creation failed
+                        ConsoleUtil.logError(this.pluginPrefix, "Failed to create mod's folders inside 'config' " +
+                            "folder. Check if the folder already exists or write permissions: " + destinationFile.getParentFile());
+                        return false;
+                    }
+                }
+                
+                // If we got here the parent folder is configured. Load resource as InputStream
+                InputStream inputStream = classLoader.getResourceAsStream(resourcePath);
+    
+                if( inputStream != null )
+                {
+                    try {
+                        // Attempt to copy file
+                        FileUtils.copyInputStreamToFile(inputStream, destinationFile);
+                        ConsoleUtil.logMessage(this.pluginPrefix, "Copied file: " + destinationFile);
+                    } catch (IOException e) {
+                        // File copying failed
+                        ConsoleUtil.logError(this.pluginPrefix, "Failed to copy file. Report this to the " +
+                            "developer: " + destinationFile);
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Something went wrong?
+                    ConsoleUtil.logError(this.pluginPrefix, "INVALID source file path that should be bundled in jar." +
+                        " Report this to the developer: " + resourcePath);
+                }
+            }
+        }
+        
+        return true;
+    }
     
     /**
      * @param classLoader Usually "getClass().getClassLoader()", this is the ClassLoader to search the file from.
@@ -39,7 +94,7 @@ public class ResourcesUtil {
      * @param targetFileName The final file name.
      * @return True if copy was done successfully.
      */
-    public boolean copyToModuleConfigFolderIfNotExists(ClassLoader classLoader, String sourcePath,
+    public boolean copyToModuleConfigFolderIfNotExistsOLD(ClassLoader classLoader, String sourcePath,
                                                    File targetPath, String targetFileName)
     {
         File finalFilePath = new File(targetPath + File.separator + targetFileName );

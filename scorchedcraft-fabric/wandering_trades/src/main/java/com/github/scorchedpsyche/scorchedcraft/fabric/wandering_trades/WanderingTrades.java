@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class WanderingTrades implements ModInitializer {
 	public static File moduleFolder;
@@ -44,25 +45,24 @@ public class WanderingTrades implements ModInitializer {
 	
 		if( FolderUtil.isDirectoryValid(moduleFolder) )
 		{
-			ResourcesUtil resourcesUtil = new ResourcesUtil(ScorchedCraftManager.WanderingTrades.Name.full);
+			ResourcesUtil resourcesUtil = new ResourcesUtil(ScorchedCraftManager.WanderingTrades.Name.full, moduleFolder,
+				getClass().getClassLoader());
 			
 			File destination = new File(moduleFolder.getAbsolutePath() + File.separator + "trade_lists");
 			
-			resourcesUtil.copyToModuleConfigFolderIfNotExists( getClass().getClassLoader(),
-				"files/config.yml", moduleFolder, "config.yml");
-			
-			// Check if "trade_lists" folder already exists
-			if( !destination.exists() )
-			{
-				// Since it doesn't exist, we copy the default trade lists
-				resourcesUtil.copyToModuleConfigFolderIfNotExists( getClass().getClassLoader(),
-					"files/trade_lists/heads_decoration.json", destination, "heads_decoration.json");
-				resourcesUtil.copyToModuleConfigFolderIfNotExists( getClass().getClassLoader(),
-					"files/trade_lists/heads_players.json", destination, "heads_players.json");
-				resourcesUtil.copyToModuleConfigFolderIfNotExists( getClass().getClassLoader(),
-					"files/trade_lists/items.json", destination, "items.json");
-			}
-			
+			resourcesUtil.copyToModuleConfigFolderIfNotExists(new ArrayList<String>(){{
+				add("files/trade_lists/heads_decoration.json");
+				add("files/trade_lists/heads_players.json");
+				add("files/trade_lists/items.json");
+				add("files/trade_lists_exporting/CES - Wandering Trades - Decoration Heads - Vanilla.csv");
+				add("files/trade_lists_exporting/CES - Wandering Trades - Decoration Heads - Vanilla.json");
+				add("files/trade_lists_exporting/CES - Wandering Trades - Decoration Heads - Food.csv");
+				add("files/trade_lists_exporting/CES - Wandering Trades - Decoration Heads - Food.json");
+				add("files/trade_lists_exporting/CES - Wandering Trades - Decoration Heads - Non-Vanilla.csv");
+				add("files/trade_lists_exporting/CES - Wandering Trades - Decoration Heads - Non-Vanilla.json");
+				add("files/trade_lists_exporting/export_list.py");
+				add("files/config.yml");
+			}});
 			
 		} else {
 			ConsoleUtil.logError(ScorchedCraftManager.WanderingTrades.Name.pomXml, "Error validating module" +
