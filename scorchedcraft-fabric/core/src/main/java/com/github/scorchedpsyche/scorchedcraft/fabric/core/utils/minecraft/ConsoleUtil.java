@@ -32,8 +32,8 @@ public class ConsoleUtil {
     }
     
     /**
-     * Logs a debug message (aqua colored) to the console with a plugin's prefix.
-     * @param modPrefixName The prefix for the plugin
+     * Logs a debug message (aqua colored) to the console with a mod's prefix.
+     * @param modPrefixName The prefix for the mod
      * @param message Message to the written to the console
      */
     public static void debugMessage(String modPrefixName, String message)
@@ -52,8 +52,8 @@ public class ConsoleUtil {
     }
     
     /**
-     * Logs an error (red colored) to the console with a plugin's prefix.
-     * @param modPrefixName The prefix for the plugin
+     * Logs an error (red colored) to the console with a mod's prefix.
+     * @param modPrefixName The prefix for the mod
      * @param message Message to the written to the console
      */
     public static void logError(String modPrefixName, String message)
@@ -63,7 +63,7 @@ public class ConsoleUtil {
     }
     
     /**
-     * Logs an SQL query error (red colored) to the console with a plugin's prefix.
+     * Logs an SQL query error (red colored) to the console with a mod's prefix.
      * @param sql SQL statement that triggered the exception
      * @param sqlMessage The debug error returned from the driver
      */
@@ -73,7 +73,7 @@ public class ConsoleUtil {
     }
     
     /**
-     * Logs an SQL query error (red colored) to the console with a plugin's prefix.
+     * Logs an SQL query error (red colored) to the console with a mod's prefix.
      * @param sql SQL statement that triggered the exception
      * @param sqlMessage The debug error returned from the driver
      */
@@ -93,8 +93,8 @@ public class ConsoleUtil {
     }
     
     /**
-     * Logs a warning (yellow colored) to the console with a plugin's prefix.
-     * @param modPrefixName The prefix for the plugin
+     * Logs a warning (yellow colored) to the console with a mod's prefix.
+     * @param modPrefixName The prefix for the mod
      * @param message Message to the written to the console
      */
     public static void logWarning(String modPrefixName, String message)
@@ -113,8 +113,8 @@ public class ConsoleUtil {
     }
     
     /**
-     * Logs a success (green colored) to the console with a plugin's prefix.
-     * @param modPrefixName The prefix for the plugin
+     * Logs a success (green colored) to the console with a mod's prefix.
+     * @param modPrefixName The prefix for the mod
      * @param message Message to the written to the console
      */
     public static void logSuccess(String modPrefixName, String message)
@@ -133,8 +133,8 @@ public class ConsoleUtil {
     }
     
     /**
-     * Logs a message (no color) to the console with a plugin's prefix.
-     * @param modPrefixName The prefix for the plugin
+     * Logs a message (no color) to the console with a mod's prefix.
+     * @param modPrefixName The prefix for the mod
      * @param message Message to the written to the console
      */
     public static void logMessage(String modPrefixName, String message)
@@ -142,8 +142,26 @@ public class ConsoleUtil {
         System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] " + message);
     }
     
-    private static String validCustomPrefixOrDefault(String pluginPrefixName)
+    /**
+     * Logs a message (no color) to the console notifying that the mod LOADING has begun.
+     * @param modPrefixName The prefix for the mod
+     */
+    public static void modLoadStarted(String modPrefixName)
     {
-        return ( StringUtil.isNullOrEmpty(pluginPrefixName) ) ? defaultPrefix : pluginPrefixName;
+        System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] LOADING STARTED");
+    }
+    
+    /**
+     * Logs a message (no color) to the console notifying that the mod LOADING has begun.
+     * @param modPrefixName The prefix for the mod
+     */
+    public static void modLoadFinished(String modPrefixName)
+    {
+        System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] LOADING FINISHED");
+    }
+    
+    private static String validCustomPrefixOrDefault(String mod)
+    {
+        return ( StringUtil.isNullOrEmpty(mod) ) ? defaultPrefix : mod;
     }
 }

@@ -132,28 +132,36 @@ public class FolderUtil {
      * @param directory The File representing the directory.
      * @return True if File passes all checks and is valid to be operated on.
      */
-    private static synchronized boolean isDirectoryValid( File directory )
+    public static synchronized boolean isDirectoryValid( File directory )
     {
         try {
-            if( directory.exists() )
+            if( directory != null )
             {
-                if( directory.isDirectory() )
+                if( directory.exists() )
                 {
-                    if( directory.canRead() )
+                    if( directory.isDirectory() )
                     {
-                        if( directory.canWrite() )
+                        if( directory.canRead() )
                         {
-                            return true;
+                            if( directory.canWrite() )
+                            {
+                                return true;
+                            }
+                            ConsoleUtil.logError("Cannot WRITE folder: " + directory.getCanonicalPath());
+                            return false;
                         }
-                        ConsoleUtil.logError("Cannot WRITE folder: " + directory.getCanonicalPath());
+                        ConsoleUtil.logError("Cannot READ folder: " + directory.getCanonicalPath());
+                        return false;
                     }
-                    ConsoleUtil.logError("Cannot READ folder: " + directory.getCanonicalPath());
+                    ConsoleUtil.logError("Path doesn't points to a directory: " + directory.getCanonicalPath());
+                    return false;
                 }
-                ConsoleUtil.logError("Path doesn't points to a directory: " + directory.getCanonicalPath());
+                ConsoleUtil.logError("Directory doesn't exists: " + directory.getCanonicalPath());
+                return false;
             }
-            ConsoleUtil.logError("Directory doesn't exists: " + directory.getCanonicalPath());
+            ConsoleUtil.logError("FolderUtil's \"isDirectoryValid\" reports that the directory is NULL. Report this to the developer!");
         } catch (IOException e) {
-            ConsoleUtil.logError("Error checking directory validity: \n" +
+            ConsoleUtil.logError("FolderUtil error checking directory validity: \n" +
                 " - " + directory.toPath() + "\n" +
                 " - " + directory.getAbsolutePath());
             e.printStackTrace();

@@ -107,4 +107,14 @@ public class ScorchedCraftManager {
             }
         }
     }
+    
+    public static class WanderingTrades
+    {
+        public static class Name
+        {
+            public static final String compact = "SC - Wandering Trades";
+            public static final String full = "ScorchedCraft - Wandering Trades";
+            public static final String pomXml = "scorchedcraft-wandering_trades";
+        }
+    }
 }
