@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "server": [
+    "MerchantEntityAccessor",
+    "WanderingTraderMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

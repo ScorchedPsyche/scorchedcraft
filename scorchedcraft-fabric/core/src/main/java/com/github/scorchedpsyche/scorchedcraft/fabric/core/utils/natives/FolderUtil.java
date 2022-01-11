@@ -31,7 +31,7 @@ public class FolderUtil {
     @Nullable
     public static File getOrCreateModuleSubfolder(String moduleName)
     {
-        setup();
+        setupSuiteFolders();
         
         if( suiteRootFolder != null )
         {
@@ -52,10 +52,11 @@ public class FolderUtil {
         return null;
     }
 
-    private static synchronized void setup()
+    public static synchronized void setupSuiteFolders()
     {
+        ConsoleUtil.debugMessage("setupSuiteFolders");
         configFolder = getOrCreateConfigFolder();
-        suiteRootFolder = getOrCreateSuiteSubfolder();
+        suiteRootFolder = getOrCreateSuiteRootFolder();
     }
     
     /**
@@ -64,6 +65,7 @@ public class FolderUtil {
     @Nullable
     private static synchronized File getOrCreateConfigFolder()
     {
+        ConsoleUtil.debugMessage("getOrCreateConfigFolder");
         if( configFolder != null )
         {
             return configFolder;
@@ -84,8 +86,9 @@ public class FolderUtil {
      * @return The root folder inside "Config" folder for the ScorchedCraft Suite configurations
      */
     @Nullable
-    public static synchronized File getOrCreateSuiteSubfolder()
+    public static synchronized File getOrCreateSuiteRootFolder()
     {
+        ConsoleUtil.debugMessage("getOrCreateSuiteRootFolder");
         if( suiteRootFolder != null )
         {
             return suiteRootFolder;
@@ -94,16 +97,20 @@ public class FolderUtil {
         String suiteFolderPathString;
     
         try {
+            ConsoleUtil.debugMessage("1");
             if( isDirectoryValid( configFolder ) )
             {
+                ConsoleUtil.debugMessage("2");
                 suiteFolderPathString = configFolder.getCanonicalPath() + File.separator + ScorchedCraftManager.Name.pomXml;
     
                 suiteRootFolder = new File(suiteFolderPathString);
     
                 if( suiteRootFolder.exists() || suiteRootFolder.mkdir() )
                 {
+                    ConsoleUtil.debugMessage("3");
                     return suiteRootFolder;
                 } else {
+                    ConsoleUtil.debugMessage("4");
                     printFolderCreationErrorToConsole(suiteRootFolder.getCanonicalPath());
                 }
             }
@@ -146,6 +153,9 @@ public class FolderUtil {
             }
             ConsoleUtil.logError("Directory doesn't exists: " + directory.getCanonicalPath());
         } catch (IOException e) {
+            ConsoleUtil.logError("Error checking directory validity: \n" +
+                " - " + directory.toPath() + "\n" +
+                " - " + directory.getAbsolutePath());
             e.printStackTrace();
         }
         

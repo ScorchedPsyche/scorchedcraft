@@ -25,6 +25,19 @@ public class DatabaseTables
     private static final String seasonsPrefix = "seasons_";
     private static final String spectatorModePrefix = "spectator_mode_";
     
+    public static class Configuration {
+        public static final String table_name = "configuration";
+        
+        public static class Table
+        {
+            public static final String module = "module";
+            public static final String name = "name";
+            public static final String value_bool = "value_bool";
+            public static final String value_int = "value_int";
+            public static final String value_string = "value_string";
+        }
+    }
+    
     public static class Achievements {
         public static final String table_name = "achievements";
         

@@ -30,12 +30,12 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 
-//	api( project(":scorchedcraft-shared:template-shared") )
+//	api( project(":scorchedcraft-shared:wandering_trades-shared") )
 
 	implementation( project(":scorchedcraft-fabric:core") )
 }
 
-//compileJava.dependsOn ':scorchedcraft-shared:template-shared:build'
+//compileJava.dependsOn ':scorchedcraft-shared:wandering_trades-shared:build'
 
 processResources {
 	inputs.property "version", project.version

@@ -38,7 +38,7 @@ public class DatabaseManager
 
             default: // SQLite
                 database = new SQLiteDatabase(
-                    FolderUtil.getOrCreateSuiteSubfolder() + File.separator + "craftera_suite.db" );
+                    FolderUtil.getOrCreateSuiteRootFolder() + File.separator + "craftera_suite.db" );
                 break;
         }
     }

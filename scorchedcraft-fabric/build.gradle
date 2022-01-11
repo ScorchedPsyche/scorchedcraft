@@ -21,8 +21,9 @@ task fabric_build (){
 //	dependsOn(':scorchedcraft-fabric:fabric_clean__modules')
 
 	dependsOn(':scorchedcraft-fabric:core:build')
-	dependsOn(':scorchedcraft-fabric:seasons:build')
+//	dependsOn(':scorchedcraft-fabric:seasons:build')
 //	dependsOn(':scorchedcraft-fabric:portals:build')
+	dependsOn(':scorchedcraft-fabric:wandering_trades:build')
 //	dependsOn(':scorchedcraft-fabric:worlds:build')
 	doLast {
 		task copy_mods(type: Copy){
@@ -72,8 +73,9 @@ task fabric_clean__modules (){
 //	dependsOn(':scorchedcraft-shared:worlds-shared:clean')
 
 	dependsOn(':scorchedcraft-fabric:core:clean')
-	dependsOn(':scorchedcraft-fabric:seasons:clean')
+//	dependsOn(':scorchedcraft-fabric:seasons:clean')
 //	dependsOn(':scorchedcraft-fabric:portals:clean')
+	dependsOn(':scorchedcraft-fabric:wandering_trades:clean')
 //	dependsOn(':scorchedcraft-fabric:worlds:clean')
 
 	println "Cleaning folders"

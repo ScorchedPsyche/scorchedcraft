@@ -18,9 +18,12 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.core;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.database.DatabaseManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.FolderUtil;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.server.MinecraftServer;
+
+import java.io.File;
 
 public class Core implements ModInitializer {
 	public static MinecraftServer server;
@@ -38,8 +41,16 @@ public class Core implements ModInitializer {
 		ConsoleUtil.logMessage("    __|  " + "|__  " + "      Suite");
 		ConsoleUtil.logMessage("");
 		
-		ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
-			Core.server = server;
-		});
+		FolderUtil.setupSuiteFolders();
+		File suiteRootFolder = FolderUtil.getOrCreateSuiteRootFolder();
+		
+		// Check if Suite's root folder exists
+		if( suiteRootFolder != null )
+		{
+			
+			ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
+				Core.server = server;
+			});
+		}
 	}
 }
