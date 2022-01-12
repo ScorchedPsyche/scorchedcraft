@@ -16,6 +16,55 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.main;
 
-public class TradeListManager {
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
+import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.model.TradeEntryModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.model.TradeListModel;
+import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.util.Collections;
+
+public class TradeListManager {
+    public TradeListManager(String tradeListsFolder)
+    {
+        loadTradeLists(tradeListsFolder);
+    }
+    
+    public TradeListModel Trades = new TradeListModel();
+    
+    private void loadTradeLists(String tradeListsFolder)
+    {
+        File[] files = new File(tradeListsFolder).listFiles();
+        if( files != null )
+        {
+            for(File file : files)
+            {
+                try
+                {
+                    Reader reader = Files.newBufferedReader(file.toPath());
+                    
+                    TradeEntryModel[] json = new Gson().fromJson(reader, TradeEntryModel[].class);
+                    
+                    if (json != null)
+                    {
+                        Collections.addAll(Trades.offers, json);
+                        
+                        ConsoleUtil.logMessage(ScorchedCraftManager.WanderingTrades.Name.full,
+                            "LOADED FILE: " + file.getName());
+                    }
+                    
+                    reader.close();
+                } catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+            
+            files = null;
+        }
+    }
 }

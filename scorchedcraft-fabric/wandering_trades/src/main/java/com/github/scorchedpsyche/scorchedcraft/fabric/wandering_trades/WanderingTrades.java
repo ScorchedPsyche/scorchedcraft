@@ -20,19 +20,28 @@ import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.Scorche
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.FolderUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.ResourcesUtil;
+import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.main.MerchantManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.main.TradeListManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.model.ConfigModel;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.item.ItemStack;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
+import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class WanderingTrades implements ModInitializer {
 	public static File moduleFolder;
 	public static ConfigModel configuration;
+	
+	public static List<ItemStack> whitelistedPlayerHeads;
+	public static MerchantManager merchantManager;
+	public static TradeListManager tradeListManager;
 	
 	/**
 	 * This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -50,8 +59,7 @@ public class WanderingTrades implements ModInitializer {
 			ResourcesUtil resourcesUtil = new ResourcesUtil(ScorchedCraftManager.WanderingTrades.Name.full, moduleFolder,
 				getClass().getClassLoader());
 			
-			File destination = new File(moduleFolder.getAbsolutePath() + File.separator + "trade_lists");
-			
+			// Copy default mod files if they're not present
 			resourcesUtil.copyToModuleConfigFolderIfNotExists(new ArrayList<String>(){{
 				add("files/trade_lists/heads_decoration.json");
 				add("files/trade_lists/heads_players.json");
@@ -67,25 +75,34 @@ public class WanderingTrades implements ModInitializer {
 				add("files/config.json");
 			}});
 			
+			// Load mod configuration YAML file
 			File configSource = new File(moduleFolder + File.separator + "config.yml");
-			
 			Yaml yaml = new Yaml(new Constructor(ConfigModel.class));
 			
 			try {
 				configuration = yaml.load(new FileInputStream(configSource));
-				ConsoleUtil.debugMessage(configuration.toString());
-				
-//				ConsoleUtil.debugMessage("remove_default_trades" + config.remove_default_trades);
-//				ConfigModel config = mapper.readValue(configSource, ConfigModel.class);
-//
-				ConsoleUtil.debugMessage("remove_default_trades " + configuration.remove_default_trades);
-				ConsoleUtil.debugMessage("maximum_unique_trade_offers.decoration_heads " + configuration.maximum_unique_trade_offers.decoration_heads);
-				ConsoleUtil.debugMessage("whitelist.enable_synchronization " + configuration.whitelist.enable_synchronization);
-				ConsoleUtil.debugMessage("whitelist.price.item1.minecraft_id " + configuration.whitelist.price.item1.minecraft_id);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
+			// Configuration loading done. Initialize Managers
+			whitelistedPlayerHeads = new ArrayList<>();
+			tradeListManager = new TradeListManager(moduleFolder.getAbsolutePath() + File.separator + "trade_lists");
+			merchantManager = new MerchantManager();
+			
+			ConsoleUtil.debugMessage( "size: " + tradeListManager.Trades.offers.size() );
+			ConsoleUtil.debugMessage( tradeListManager.Trades.offers.get(0).toString() );
+			ConsoleUtil.debugMessage( tradeListManager.Trades.offers.get(1).toString() );
+			ConsoleUtil.debugMessage( tradeListManager.Trades.offers.get(2).toString() );
+//			ConsoleUtil.debugMessage( tradeListManager.Trades.offers.get(3).toString() );
+//			ConsoleUtil.debugMessage( tradeListManager.Trades.offers.get(4).toString() );
+//			ConsoleUtil.debugMessage( tradeListManager.Trades.offers.get(5).toString() );
+			
+			ConsoleUtil.debugMessage( tradeListManager.Trades.offers.get(0).getPriceItem1() );
+			ConsoleUtil.debugMessage( "getPrice1 " + tradeListManager.Trades.offers.get(0).getPrice1() );
+			ConsoleUtil.debugMessage( tradeListManager.Trades.offers.get(0).getMinecraftId() );
+			ConsoleUtil.debugMessage( "getAmount " + tradeListManager.Trades.offers.get(0).getAmount() );
+			ConsoleUtil.debugMessage( "getOwnerId " + tradeListManager.Trades.offers.get(0).getOwnerId() );
 		} else {
 			ConsoleUtil.logError(ScorchedCraftManager.WanderingTrades.Name.pomXml, "Error validating module" +
 				"folder: " + moduleFolder);
