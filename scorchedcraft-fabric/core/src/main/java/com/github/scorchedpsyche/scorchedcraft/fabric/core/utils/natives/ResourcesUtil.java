@@ -19,10 +19,9 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import org.apache.commons.io.FileUtils;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ResourcesUtil {

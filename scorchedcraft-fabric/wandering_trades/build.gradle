@@ -11,6 +11,11 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+	maven {
+		url 'https://repo.maven.apache.org/maven2'
+		name 'Maven Central'
+	}
+
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -33,6 +38,10 @@ dependencies {
 //	api( project(":scorchedcraft-shared:wandering_trades-shared") )
 
 	implementation( project(":scorchedcraft-fabric:core") )
+	implementation group: 'org.yaml', name: 'snakeyaml', version: '1.29'
+//	compileClasspath(group: 'org.yaml', name: 'snakeyaml', version: '1.29')
+	runtimeClasspath(group: 'org.yaml', name: 'snakeyaml', version: '1.29')
+//	api(group: 'org.yaml', name: 'snakeyaml', version: '1.29')
 }
 
 //compileJava.dependsOn ':scorchedcraft-shared:wandering_trades-shared:build'
@@ -64,16 +73,30 @@ java {
 }
 
 jar {
+	duplicatesStrategy = 'EXCLUDE'
 //	from {
 //		configurations
 //				.runtimeClasspath
 //				.collect {
-//					if(it.name.contains("worlds__shared")) {
-//						println('ZIPPED: ' + it.path)
+//					if( it.isDirectory() ) {
+//						it
+//					} else {
 //						zipTree(it)
+//						println('ZIPPED: ' + it.path)
 //					}
 //				}
 //	}
+////	from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+	from {
+		configurations
+				.runtimeClasspath
+				.collect {
+					if(it.name.contains("snakeyaml")) {
+						println('ZIPPED: ' + it.path)
+						zipTree(it)
+					}
+				}
+	}
 
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}

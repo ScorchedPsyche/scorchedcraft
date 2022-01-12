@@ -5,13 +5,13 @@ plugins {
 allprojects {
 	apply plugin: 'java' //so that we can use 'compile', 'testCompile' for dependencies
 
-//	task printAnnotationProcessor {
-//		doFirst {
-////			configurations.compileClasspath .each { println it }
-////
-////			// This should probably work as well:
-////		 	sourceSets.main.runtimeClasspath.each { println it}
-//			configurations.annotationProcessor.each{ println it }
-//		}
-//	}
+	task printAnnotationProcessor {
+		doFirst {
+//			configurations.compileClasspath .each { println it }
+//
+//			// This should probably work as well:
+//		 	sourceSets.main.runtimeClasspath.each { println it}
+			configurations.annotationProcessor.each{ println it }
+		}
+	}
 }
