@@ -80,6 +80,17 @@ public class ResourcesUtil {
                     ConsoleUtil.logError(this.pluginPrefix, "INVALID source file path that should be bundled in jar." +
                         " Report this to the developer: " + resourcePath);
                 }
+    
+                try {
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                } catch (IOException e) {
+                    ConsoleUtil.logError(this.pluginPrefix, "Failed to close InputStream. Report this to the " +
+                        "developer: " + destinationFile);
+                    e.printStackTrace();
+                    e.printStackTrace();
+                }
             }
         }
         

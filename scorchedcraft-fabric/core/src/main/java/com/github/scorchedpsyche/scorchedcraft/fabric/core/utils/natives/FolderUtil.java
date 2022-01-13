@@ -54,7 +54,6 @@ public class FolderUtil {
 
     public static synchronized void setupSuiteFolders()
     {
-        ConsoleUtil.debugMessage("setupSuiteFolders");
         configFolder = getOrCreateConfigFolder();
         suiteRootFolder = getOrCreateSuiteRootFolder();
     }
@@ -65,7 +64,6 @@ public class FolderUtil {
     @Nullable
     private static synchronized File getOrCreateConfigFolder()
     {
-        ConsoleUtil.debugMessage("getOrCreateConfigFolder");
         if( configFolder != null )
         {
             return configFolder;
@@ -88,7 +86,6 @@ public class FolderUtil {
     @Nullable
     public static synchronized File getOrCreateSuiteRootFolder()
     {
-        ConsoleUtil.debugMessage("getOrCreateSuiteRootFolder");
         if( suiteRootFolder != null )
         {
             return suiteRootFolder;
@@ -97,20 +94,16 @@ public class FolderUtil {
         String suiteFolderPathString;
     
         try {
-            ConsoleUtil.debugMessage("1");
             if( isDirectoryValid( configFolder ) )
             {
-                ConsoleUtil.debugMessage("2");
                 suiteFolderPathString = configFolder.getCanonicalPath() + File.separator + ScorchedCraftManager.Name.pomXml;
     
                 suiteRootFolder = new File(suiteFolderPathString);
     
                 if( suiteRootFolder.exists() || suiteRootFolder.mkdir() )
                 {
-                    ConsoleUtil.debugMessage("3");
                     return suiteRootFolder;
                 } else {
-                    ConsoleUtil.debugMessage("4");
                     printFolderCreationErrorToConsole(suiteRootFolder.getCanonicalPath());
                 }
             }

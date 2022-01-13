@@ -23,15 +23,12 @@ import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.Wandering
 import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.model.TradeEntryModel;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.SkullItem;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOfferList;
@@ -90,35 +87,52 @@ public class MerchantManager {
         }
         ConsoleUtil.logMessage(ScorchedCraftManager.WanderingTrades.Name.full,
             "Loaded a total of " + totalLoadedSuccessfully + " item and decoration head trades" );
-
-////        synchronizeWhitelistedPlayersIfNeeded();
-//        // WHITELISTED Player's Heads synchronization
-//        if (CraftEraSuiteWanderingTrades.config.getBoolean("whitelist.enable_synchronization")) // TO DO
+    }
+    
+//    public void synchronizeWhitelist()
+//    {
+//        ConsoleUtil.logMessage( ScorchedCraftManager.WanderingTrades.Name.full,
+//            "Synchronizing whitelist player heads trades");
+//
+//        // Whitelist synchronization enabled. Must check if the config is valid
+//        if( isConfigYmlWhitelistSectionValid() )
 //        {
-////            are_whitelisted_player_heads_synchronized = CraftEraSuiteWanderingTrades.config.getBoolean("whitelist.enable_synchronization");
+//            // Valid whitelist config.yaml section
+//            Whitelist whitelist = Core.server.getPlayerManager().getWhitelist();
+//
 //            // Check if whitelist is empty
-//            if (Bukkit.hasWhitelist() && Bukkit.getWhitelistedPlayers().size() > 0)
+//            if( !whitelist.isEmpty() )
 //            {
-//                // Check if config.yml
-//                if ( isConfigYmlMissingWhitelistConfig() )
+//                int totalLoadedSuccessfully = 0;
+//
+//                // Not empty
+//                for( String whitelistedPlayer : whitelist.getNames() )
 //                {
-//                    // Not empty
-//                    for (OfflinePlayer offlinePlayer : Bukkit.getWhitelistedPlayers())
-//                    {
-//                        loadWhitelistedPlayerHeadRecipe(offlinePlayer);
-//                    }
-//                    ConsoleUtil.logMessage(SuitePluginManager.WanderingTrades.Name.full,
-//                        "Loaded whitelisted player heads trades");
+//                    loadWhitelistedPlayerHeadRecipe(whitelistedPlayer);
+//                    totalLoadedSuccessfully++;
 //                }
+//
+////                // Not empty
+////                for( String whitelistedPlayer : whitelist.getNames() )
+////                {
+////                    loadWhitelistedPlayerHeadRecipe(whitelistedPlayer);
+////                    totalLoadedSuccessfully++;
+////                }
+//                ConsoleUtil.logMessage( ScorchedCraftManager.WanderingTrades.Name.full,
+//                    "Loaded a total of " + totalLoadedSuccessfully + " whitelisted player heads trades");
 //            } else
 //            {
 //                // Empty whitelist
-//                ConsoleUtil.logError(SuitePluginManager.WanderingTrades.Name.full,
+//                ConsoleUtil.logMessage( ScorchedCraftManager.WanderingTrades.Name.full,
 //                    "Whitelist synchronization is ON (check config.yml) but the whitelist is " +
 //                        "empty or doesn't exists");
 //            }
+//        } else {
+//            // Whitelist section of config.yaml is invalid
+//            ConsoleUtil.logMessage( ScorchedCraftManager.WanderingTrades.Name.full,
+//                "Whitelist section of config YAML is invalid. The file will be recreated if you delete it!");
 //        }
-    }
+//    }
     
     /***
      * Loads item recipe from the files.
@@ -210,6 +224,123 @@ public class MerchantManager {
         nbt.put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile) );
         
         return decorationHead;
+    }
+    
+    /***
+     * Add to merchant trade list Player Head from whitelisted player.
+     * @param playerHead The item stack with the Player Head
+     */
+    public void loadWhitelistedPlayerHeadRecipe(ItemStack playerHead)
+    {
+        Item firstBuyItem = Registry.ITEM.get( Identifier.tryParse(WanderingTrades.configuration.whitelist.price.item1.minecraft_id) );
+    
+        if( WanderingTrades.configuration.whitelist.price.item2 != null )
+        {
+            // Ingredient2 valid - add trade with both ingredients
+            Item secondBuyItem = Registry.ITEM.get( Identifier.tryParse(WanderingTrades.configuration.whitelist.price.item2.minecraft_id) );
+        
+            playerHeadsWhitelisted.add(new TradeOffer(
+                new ItemStack(firstBuyItem, WanderingTrades.configuration.whitelist.price.item1.quantity),
+                new ItemStack(secondBuyItem, WanderingTrades.configuration.whitelist.price.item2.quantity),
+                playerHead,
+                WanderingTrades.configuration.whitelist.maximum_number_of_trades,
+                WanderingTrades.configuration.whitelist.experience_rewarded_for_each_trade,
+                WanderingTrades.configuration.whitelist.trade_price_multiplier
+            ));
+        } else {
+            // No second ingredient - add trade
+            playerHeadsWhitelisted.add(new TradeOffer(
+                new ItemStack(firstBuyItem, WanderingTrades.configuration.whitelist.price.item1.quantity),
+                playerHead,
+                WanderingTrades.configuration.whitelist.maximum_number_of_trades,
+                WanderingTrades.configuration.whitelist.experience_rewarded_for_each_trade,
+                WanderingTrades.configuration.whitelist.trade_price_multiplier
+            ));
+        }
+    }
+//    private void loadWhitelistedPlayerHeadRecipe(String whitelistedPlayer)
+//    {
+////        UUID randomUUID = UUID.randomUUID();
+//        Item firstBuyItem = Registry.ITEM.get( Identifier.tryParse(WanderingTrades.configuration.whitelist.price.item1.minecraft_id) );
+//
+//        GameProfile profile = new GameProfile((UUID)null, whitelistedPlayer);
+//
+//        ItemStack whitelistedPlayerHead = new ItemStack( Items.PLAYER_HEAD, WanderingTrades.configuration.whitelist.heads_rewarded_per_trade);
+//        NbtCompound nbt = whitelistedPlayerHead.getOrCreateNbt();
+//        nbt.put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile) );
+//
+//        if( WanderingTrades.configuration.whitelist.price.item2 != null )
+//        {
+//            // Ingredient2 valid - add trade with both ingredients
+//            Item secondBuyItem = Registry.ITEM.get( Identifier.tryParse(WanderingTrades.configuration.whitelist.price.item2.minecraft_id) );
+//
+//            decorationHeads.add(new TradeOffer(
+//                new ItemStack(firstBuyItem, WanderingTrades.configuration.whitelist.price.item1.quantity),
+//                new ItemStack(secondBuyItem, WanderingTrades.configuration.whitelist.price.item2.quantity),
+//                whitelistedPlayerHead,
+//                WanderingTrades.configuration.whitelist.maximum_number_of_trades,
+//                WanderingTrades.configuration.whitelist.experience_rewarded_for_each_trade,
+//                WanderingTrades.configuration.whitelist.trade_price_multiplier
+//            ));
+//        } else {
+//            // No second ingredient - add trade
+//            decorationHeads.add(new TradeOffer(
+//                new ItemStack(firstBuyItem, WanderingTrades.configuration.whitelist.price.item1.quantity),
+//                whitelistedPlayerHead,
+//                WanderingTrades.configuration.whitelist.maximum_number_of_trades,
+//                WanderingTrades.configuration.whitelist.experience_rewarded_for_each_trade,
+//                WanderingTrades.configuration.whitelist.trade_price_multiplier
+//            ));
+//        }
+    
+    /***
+     * Adds whitelisted player heads to Wandering Trader's offers.
+     */
+    public TradeOfferList addWhitelistedPlayerHeadsToOffers(TradeOfferList tradeOffers)
+    {
+        if( !playerHeadsWhitelisted.isEmpty() )
+        {
+            Collections.shuffle( playerHeadsWhitelisted );
+            
+            int nbrOfTradesToAdd = playerHeadsWhitelisted.size();
+            
+            if( nbrOfTradesToAdd > WanderingTrades.configuration.whitelist.number_of_player_head_offers )
+            {
+                nbrOfTradesToAdd = WanderingTrades.configuration.whitelist.number_of_player_head_offers;
+            }
+            
+            for (int i = 0; i < nbrOfTradesToAdd; i++)
+            {
+                tradeOffers.add( playerHeadsWhitelisted.get(i) );
+            }
+        }
+        
+        return tradeOffers;
+    }
+    
+    /***
+     * Adds items to Wandering Trader's offers.
+     */
+    public TradeOfferList addItemsToOffers(TradeOfferList tradeOffers)
+    {
+        if( !items.isEmpty() )
+        {
+            Collections.shuffle( items );
+            
+            int nbrOfTradesToAdd = items.size();
+            
+            if( nbrOfTradesToAdd > WanderingTrades.configuration.maximum_unique_trade_offers.items )
+            {
+                nbrOfTradesToAdd = WanderingTrades.configuration.maximum_unique_trade_offers.items;
+            }
+            
+            for (int i = 0; i < nbrOfTradesToAdd; i++)
+            {
+                tradeOffers.add( items.get(i) );
+            }
+        }
+        
+        return tradeOffers;
     }
     
     /***

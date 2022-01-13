@@ -142,23 +142,23 @@ public class ConsoleUtil {
         System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] " + message);
     }
     
-    /**
-     * Logs a message (no color) to the console notifying that the mod LOADING has begun.
-     * @param modPrefixName The prefix for the mod
-     */
-    public static void modLoadStarted(String modPrefixName)
-    {
-        System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] LOADING STARTED");
-    }
-    
-    /**
-     * Logs a message (no color) to the console notifying that the mod LOADING has begun.
-     * @param modPrefixName The prefix for the mod
-     */
-    public static void modLoadFinished(String modPrefixName)
-    {
-        System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] LOADING FINISHED");
-    }
+//    /**
+//     * Logs a message (no color) to the console notifying that the mod LOADING has begun.
+//     * @param modPrefixName The prefix for the mod
+//     */
+//    public static void modLoadStarted(String modPrefixName)
+//    {
+//        System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] LOADING STARTED");
+//    }
+//
+//    /**
+//     * Logs a message (no color) to the console notifying that the mod LOADING has begun.
+//     * @param modPrefixName The prefix for the mod
+//     */
+//    public static void modLoadFinished(String modPrefixName)
+//    {
+//        System.out.println("[" + validCustomPrefixOrDefault(modPrefixName) + "] LOADING FINISHED");
+//    }
     
     private static String validCustomPrefixOrDefault(String mod)
     {

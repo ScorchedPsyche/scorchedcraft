@@ -25,16 +25,6 @@ import java.util.concurrent.Future;
 public class WanderingTraderMixin  {
 	@Inject(at = @At("TAIL"), method = "fillRecipes()V")
 	private void init(CallbackInfo info) {
-//		ConsoleUtil.logMessage("WANDERING TRADER fillRecipes");
-//		TradeOfferList trades = ((WanderingTraderEntity)(Object)this).getOffers();
-//		trades = new TradeOfferList();
-//
-//		ConsoleUtil.logMessage("size" + trades.size());
-//		for ( TradeOffer offer : trades )
-//		{
-//			ConsoleUtil.logMessage(" - " + offer.getSellItem().toString());
-//		}
-		
 		TradeOfferList trades = ((WanderingTraderEntity)(Object)this).getOffers();
 		
 		MerchantEntityAccessor merchant = ((MerchantEntityAccessor)(Object)this);
@@ -46,31 +36,13 @@ public class WanderingTraderMixin  {
 			newTrades.addAll(trades);
 		}
 		
-//		ExecutorService threadpool = Executors.newCachedThreadPool();
-//		Future<Long> futureTask = threadpool.submit(() -> factorial(number));
-//
-//		while (!futureTask.isDone()) {
-//			System.out.println("FutureTask is not finished yet...");
-//		}
-//		long result = futureTask.get();
-//
-//		threadpool.shutdown();
-		
+		if( WanderingTrades.configuration.whitelist.enable_synchronization )
+		{
+			newTrades = WanderingTrades.merchantManager.addWhitelistedPlayerHeadsToOffers( newTrades );
+		}
+		newTrades = WanderingTrades.merchantManager.addItemsToOffers( newTrades );
 		newTrades = WanderingTrades.merchantManager.addDecorationHeadsToOffers( newTrades );
 		
-//		newTrades.add(new TradeOffer(
-//			new ItemStack(Items.DIAMOND),
-//			new ItemStack(Items.ELYTRA),
-//			1,
-//			0,
-//			1
-//		));
-		
-		
-		
 		merchant.setOffers(newTrades);
-		
-//		TradeOfferList trades2 = ((WanderingTraderEntity)(Object)this).getOffers();
-//		ConsoleUtil.logMessage("size 2: " + trades.size());
 	}
 }

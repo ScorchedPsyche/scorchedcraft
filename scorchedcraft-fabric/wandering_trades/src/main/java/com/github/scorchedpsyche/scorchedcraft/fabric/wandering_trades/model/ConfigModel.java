@@ -22,7 +22,7 @@ import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.model.con
 public class ConfigModel {
     public ConfigModel(){}
     
-    public boolean remove_default_trades;
+    public boolean remove_default_trades = true;
     public MaximumUniqueTradeOffersConfigModel maximum_unique_trade_offers;
-    public WhitelistConfigModel whitelist;
+    public WhitelistConfigModel whitelist =  new WhitelistConfigModel();
 }

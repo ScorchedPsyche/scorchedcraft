@@ -17,10 +17,11 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.model.config;
 
 public class WhitelistConfigModel {
-    public boolean enable_synchronization;
-    public int number_of_player_head_offers;
-    public int heads_rewarded_per_trade;
-    public int maximum_number_of_trades;
-    public boolean experience_rewarded_for_each_trade;
+    public boolean enable_synchronization = false;
+    public int number_of_player_head_offers = 0;
+    public int heads_rewarded_per_trade = 0;
+    public int maximum_number_of_trades = 0;
+    public int experience_rewarded_for_each_trade = 0;
+    public int trade_price_multiplier = 0;
     public PriceWhitelistConfigModel price;
 }

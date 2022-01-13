@@ -17,6 +17,7 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.core;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.database.DatabaseManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.FolderUtil;
 import net.fabricmc.api.ModInitializer;
@@ -40,6 +41,7 @@ public class Core implements ModInitializer {
 		ConsoleUtil.logMessage("   |__   " + "|  " + "    ScorchedCraft");
 		ConsoleUtil.logMessage("    __|  " + "|__  " + "      Suite");
 		ConsoleUtil.logMessage("");
+//		ConsoleUtil.modLoadStarted(ScorchedCraftManager.Core.Name.full);
 		
 		FolderUtil.setupSuiteFolders();
 		File suiteRootFolder = FolderUtil.getOrCreateSuiteRootFolder();
@@ -47,10 +49,19 @@ public class Core implements ModInitializer {
 		// Check if Suite's root folder exists
 		if( suiteRootFolder != null )
 		{
+			ConsoleUtil.logMessage( ScorchedCraftManager.Core.Name.full,
+				"Configuration folder verified");
 			
 			ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
 				Core.server = server;
+				ConsoleUtil.logMessage( ScorchedCraftManager.Core.Name.full,
+					"Server registered");
 			});
+		} else {
+			ConsoleUtil.logError( ScorchedCraftManager.Core.Name.full,
+				"Failed to configure suite's root folder. Check read/write permissions for the CONFIG" +
+					"folder inside your Minecraft folder!");
 		}
+//		ConsoleUtil.modLoadFinished(ScorchedCraftManager.Core.Name.full);
 	}
 }
