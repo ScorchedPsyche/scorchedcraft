@@ -46,13 +46,13 @@ You're welcome to join our Discord and get in touch with us to discuss code or s
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Games;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `HUD;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Logger;`  
-![#f6ff00](https://via.placeholder.com/15/f6ff00/000000?text=+) `Portals;`  
+![#f6ff00](https://via.placeholder.com/15/f03c15/000000?text=+) `Portals;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Rewards;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Seasons;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Sleep;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Spectator Mode;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Statistics;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Streaming Support;`  
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Wandering Trades;`  
+![#f03c15](https://via.placeholder.com/15/f6ff00/000000?text=+) `Wandering Trades;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `WorldGen;`  
-![#f6ff00](https://via.placeholder.com/15/f6ff00/000000?text=+) `Worlds.`  
+![#f6ff00](https://via.placeholder.com/15/f03c15/000000?text=+) `Worlds.`  
