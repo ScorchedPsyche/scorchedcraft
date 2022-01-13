@@ -47,7 +47,7 @@ public class MerchantManager {
     private final List<TradeOffer> decorationHeads = new ArrayList<>();
     private final List<TradeOffer> items = new ArrayList<>();
     private final List<TradeOffer> playerHeads = new ArrayList<>();
-    private final List<TradeOffer> playerHeadsWhitelisted = new ArrayList<>();
+    public List<TradeOffer> playerHeadsWhitelisted;
     
     /***
      * Setup for the Merchant Manager class which preloads user files and creates static lists from them.

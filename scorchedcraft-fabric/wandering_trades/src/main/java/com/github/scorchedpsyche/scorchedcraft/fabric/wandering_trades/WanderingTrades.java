@@ -16,6 +16,7 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades;
 
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.FolderUtil;
@@ -28,7 +29,11 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.server.Whitelist;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.dedicated.command.WhitelistCommand;
 import net.minecraft.util.Identifier;
+import net.minecraft.village.TradeOffer;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -100,7 +105,7 @@ public class WanderingTrades implements ModInitializer {
 //					whitelistedPlayerHeads = new ArrayList<>();
 					
 					ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
-						this.loadPlayerHeads(server.getPlayerManager().getWhitelist());
+						loadPlayerHeads();
 					});
 				}
 			}
@@ -112,8 +117,10 @@ public class WanderingTrades implements ModInitializer {
 //		ConsoleUtil.modLoadFinished(ScorchedCraftManager.WanderingTrades.Name.full);
 	}
 	
-	public void loadPlayerHeads(Whitelist whitelist)
+	public static void loadPlayerHeads()
 	{
+		merchantManager.playerHeadsWhitelisted = new ArrayList<>();
+		Whitelist whitelist = Core.server.getPlayerManager().getWhitelist();
 		String[] players = whitelist.getNames();;
 		
 		if( players.length > 0 )
