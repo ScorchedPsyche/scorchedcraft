@@ -56,4 +56,8 @@ public class MathUtil {
     public static int limitBetween(int value, int min, int max) {
         return Math.max(min, Math.min(value, max));
     }
+    
+    public static long ticksToMilliseconds(int ticks) {
+        return ticks * 50L;
+    }
 }

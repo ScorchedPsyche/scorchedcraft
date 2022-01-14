@@ -72,16 +72,23 @@ public class WorldUtil {
 
         public static boolean canBedsBeUsed(@NotNull World world)
         {
+            ConsoleUtil.logMessage("world.getTimeOfDay() " + world.getTimeOfDay());
             if( !world.isRaining() )
             {
+                ConsoleUtil.logMessage("!world.isRaining()");
+                ConsoleUtil.logMessage("BEDS_CAN_BE_USED_START " + DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START);
+                ConsoleUtil.logMessage("BEDS_CAN_BE_USED_END " + DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END);
                 // Not raining. Use time for clear weather
-                return world.getTime() >= DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START
-                    && world.getTime() < DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END;
+                return world.getTimeOfDay() >= DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START
+                    && world.getTimeOfDay() < DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END;
             }
-
+    
+            ConsoleUtil.logMessage("world.isRaining()");
+            ConsoleUtil.logMessage("BEDS_CAN_BE_USED_START " + DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START);
+            ConsoleUtil.logMessage("BEDS_CAN_BE_USED_END " + DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END);
             // Use raining time
-            return world.getTime() >= DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START
-                && world.getTime() < DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END;
+            return world.getTimeOfDay() >= DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START
+                && world.getTimeOfDay() < DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END;
         }
 
         public static boolean isWorldAtBedsCanBeUsedEndTime(World world)
@@ -98,9 +105,10 @@ public class WorldUtil {
     
         public static boolean skipNightUntilBedsCannotBeUsed(World world)
         {
-            long currentDaySunrise = 24000 * Math.floorDiv(world.getTime(), 24000);
-            
+            long currentDaySunrise = 24000L * Math.floorDiv(world.getTimeOfDay(), 24000L);
             long nextDaySunrise;
+            long nextTimeOfDay = world.getTimeOfDay() + 100L;
+            
             if( !world.isRaining() && !world.isThundering() )
             {
                 // Weather clear
@@ -111,14 +119,39 @@ public class WorldUtil {
             }
             
             // Check if skip step won't go over the start of the day
-            if( world.getTime() + 100 < nextDaySunrise)
+            if( nextTimeOfDay < nextDaySunrise)
             {
-//            ConsoleUtil.debugMessage("world.getFullTime() + 100: " + (world.getFullTime() + 100));
-                ((ServerWorld) world).setTimeOfDay(world.getTime() + 100 );
+//                ConsoleUtil.debugMessage("world.getTime(): " + world.getTime());
+//                ConsoleUtil.debugMessage("world.getTimeOfDay(): " + world.getTimeOfDay());
+//                ConsoleUtil.debugMessage("world.getTimeOfDay() + 100: " + (world.getTimeOfDay() + 100L));
+//                ConsoleUtil.debugMessage("nextDaySunrise: " + nextDaySunrise);
+//                ConsoleUtil.logMessage("NOT sunrise" );
+                ((ServerWorld) world).setTimeOfDay( nextTimeOfDay );
+                ConsoleUtil.logMessage(nextTimeOfDay+ "/" + nextDaySunrise);
                 return true;
             } else {
                 // Will overflow the day
-//            ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ConsoleUtil.debugMessage("SUNRISE!!!!" );
                 ((ServerWorld) world).setTimeOfDay(nextDaySunrise);
                 return false;
             }

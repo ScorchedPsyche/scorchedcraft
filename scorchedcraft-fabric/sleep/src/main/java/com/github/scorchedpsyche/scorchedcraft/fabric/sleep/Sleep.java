@@ -16,6 +16,7 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.sleep;
 
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.FolderUtil;
@@ -28,8 +29,9 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.HitResult;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -73,18 +75,39 @@ public class Sleep implements ModInitializer {
 				
 				if ( this.isConfigYmlValid() ) {
 					// Configuration loading done. Initialize Managers
-					
 					ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
 						sleepManager = new SleepManager();
+						
+						Core.server.getCommandManager().getDispatcher().register(
+							CommandManager.literal("sc")
+								.then( CommandManager.literal("sleep")
+										.executes( context -> {
+									ConsoleUtil.debugMessage("command executed");
+									if( context.getSource().getEntity() != null && context.getSource().getEntity() instanceof ServerPlayerEntity )
+									{
+										ConsoleUtil.debugMessage("command is player");
+										sleepManager.toggleNightReservationForPlayer(context.getSource().getPlayer());
+									}
+									
+									return 0;
+								})
+							)
+						);
 						
 						UseBlockCallback.EVENT.register((player, world, hand, hitResult) ->
 						{
 							BlockEntity blockEntity =  player.getWorld().getBlockEntity( hitResult.getBlockPos() );
+							ConsoleUtil.logMessage("RIGHTO CLICKO");
 							
 							if( blockEntity != null && blockEntity.getType() == BlockEntityType.BED)
 							{
-								sleepManager.playerIsTryingToSleep(player, world);
-								return ActionResult.FAIL;
+								ConsoleUtil.logMessage("TRYING SLEEP");
+								if( sleepManager.playerIsTryingToSleep(player, world) )
+								{
+									ConsoleUtil.logMessage("sleeping");
+									player.sleep( blockEntity.getPos() );
+									return ActionResult.FAIL;
+								}
 							}
 							
 							return ActionResult.PASS;
