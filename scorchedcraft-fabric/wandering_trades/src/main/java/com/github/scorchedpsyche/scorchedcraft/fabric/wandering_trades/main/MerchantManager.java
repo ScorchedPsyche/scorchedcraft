@@ -400,7 +400,7 @@ public class MerchantManager {
                     // Missing both
                     isValid = false;
                     ConsoleUtil.logError(ScorchedCraftManager.WanderingTrades.Name.full,
-                        "On: " + trade.getMinecraftId() + ". You are 'getOwnerId' and 'getTexture'. " +
+                        "On '" + trade.getMinecraftId() + "' named '" + trade.getName() + "'. Missing 'ownerid' and 'texture'. " +
                             "Item was not added" );
                 }
             } else {

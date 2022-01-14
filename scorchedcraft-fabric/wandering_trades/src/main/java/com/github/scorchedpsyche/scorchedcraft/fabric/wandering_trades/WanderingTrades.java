@@ -196,7 +196,7 @@ public class WanderingTrades implements ModInitializer {
 	}
 	
 	/**
-	 * Validates the config.yaml's whitelist section
+	 * Validates the config.yaml
 	 * @return True if section is valid
 	 */
 	public boolean isConfigYmlValid()
@@ -208,26 +208,26 @@ public class WanderingTrades implements ModInitializer {
 			if( configuration.maximum_unique_trade_offers.items < 0  )
 			{
 				validYAML = false;
-				ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+				ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 					"config.yaml's property is either missing or invalid (cannot be negative): maximum_unique_trade_offers.items");
 			}
 			
 			if( configuration.maximum_unique_trade_offers.decoration_heads < 0  )
 			{
 				validYAML = false;
-				ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+				ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 					"config.yaml's property is either missing or invalid (cannot be negative): maximum_unique_trade_offers.decoration_heads");
 			}
 			
 			if( configuration.maximum_unique_trade_offers.player_heads < 0  )
 			{
 				validYAML = false;
-				ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+				ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 					"config.yaml's property is either missing or invalid (cannot be negative): maximum_unique_trade_offers.player_heads");
 			}
 		} else {
 			validYAML = false;
-			ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+			ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 				"config.yaml's section is missing: maximum_unique_trade_offers");
 		}
 		
@@ -236,7 +236,7 @@ public class WanderingTrades implements ModInitializer {
 			if( configuration.whitelist.number_of_player_head_offers <= 0  )
 			{
 				validYAML = false;
-				ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+				ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 					"config.yaml's property is either missing or invalid (cannot be negative or 0): whitelist.number_of_player_head_offers");
 			}
 			
@@ -250,46 +250,46 @@ public class WanderingTrades implements ModInitializer {
 			if( configuration.whitelist.maximum_number_of_trades <= 0  )
 			{
 				validYAML = false;
-				ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+				ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 					"config.yaml's property is either missing or invalid (cannot be negative or 0): whitelist.maximum_number_of_trades");
 			}
 			
 			if( configuration.whitelist.experience_rewarded_for_each_trade < 0  )
 			{
 				validYAML = false;
-				ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+				ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 					"config.yaml's property is either missing or invalid (cannot be negative): whitelist.experience_rewarded_for_each_trade");
 			}
 			
 			if( configuration.whitelist.trade_price_multiplier < 0  )
 			{
 				validYAML = false;
-				ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+				ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 					"config.yaml's property is either missing or invalid (cannot be negative): whitelist.trade_price_multiplier");
 			}
 			
 			if( configuration.whitelist.price == null  )
 			{
 				validYAML = false;
-				ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+				ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 					"config.yaml's property is either missing or invalid: whitelist.price");
 			} else {
 				if( configuration.whitelist.price.item1 == null  )
 				{
 					validYAML = false;
-					ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+					ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 						"config.yaml's property is either missing or invalid: whitelist.price.item1");
 				} else {
 					if( configuration.whitelist.price.item1.minecraft_id == null  )
 					{
 						validYAML = false;
-						ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+						ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 							"config.yaml's property is either missing or invalid: whitelist.price.item1.minecraft_id");
 					} else {
 						if( Identifier.tryParse(configuration.whitelist.price.item1.minecraft_id) == null )
 						{
 							validYAML = false;
-							ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+							ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 								"config.yaml's property is either missing or invalid: whitelist.price.item1.minecraft_id");
 						}
 					}
@@ -297,7 +297,7 @@ public class WanderingTrades implements ModInitializer {
 					if( configuration.whitelist.price.item1.quantity <= 0 )
 					{
 						validYAML = false;
-						ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+						ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 							"config.yaml's property is either missing or invalid: whitelist.price.item1.quantity");
 					}
 				}
@@ -307,13 +307,13 @@ public class WanderingTrades implements ModInitializer {
 					if( configuration.whitelist.price.item2.minecraft_id == null  )
 					{
 						validYAML = false;
-						ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+						ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 							"config.yaml's property is either missing or invalid: whitelist.price.item2.minecraft_id");
 					} else {
 						if( Identifier.tryParse(configuration.whitelist.price.item2.minecraft_id) == null )
 						{
 							validYAML = false;
-							ConsoleUtil.logError( ScorchedCraftManager.Name.full,
+							ConsoleUtil.logError( ScorchedCraftManager.WanderingTrades.Name.full,
 								"config.yaml's property is either missing or invalid: whitelist.price.item2.minecraft_id");
 						}
 					}

@@ -21,6 +21,7 @@ include (
         'scorchedcraft-fabric',
         'scorchedcraft-fabric:core',
 //        'scorchedcraft-fabric:seasons',
+        'scorchedcraft-fabric:sleep',
 //        'scorchedcraft-fabric:portals',
         'scorchedcraft-fabric:wandering_trades'
 //        'scorchedcraft-fabric:worlds'

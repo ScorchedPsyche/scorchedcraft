@@ -67,6 +67,16 @@ public class ScorchedCraftManager {
         }
     }
     
+    public static class Sleep
+    {
+        public static class Name
+        {
+            public static final String compact = "SC - Sleep";
+            public static final String full = "ScorchedCraft - Sleep";
+            public static final String pomXml = "scorchedcraft-sleep";
+        }
+    }
+    
     public static class Seasons
     {
         public static class Name

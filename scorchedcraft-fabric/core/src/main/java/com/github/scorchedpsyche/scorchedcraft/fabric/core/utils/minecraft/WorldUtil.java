@@ -16,16 +16,21 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft;
 
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.MathUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class WorldUtil {
     public static void sendMessageToAllPlayersInWorld(World world, String message)
@@ -89,6 +94,73 @@ public class WorldUtil {
 
             // Use raining time
             return world.getTime() == DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END;
+        }
+    
+        public static boolean skipNightUntilBedsCannotBeUsed(World world)
+        {
+            long currentDaySunrise = 24000 * Math.floorDiv(world.getTime(), 24000);
+            
+            long nextDaySunrise;
+            if( !world.isRaining() && !world.isThundering() )
+            {
+                // Weather clear
+                nextDaySunrise = DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END + currentDaySunrise;
+            } else {
+                // Raining or thundering
+                nextDaySunrise = DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END + currentDaySunrise;
+            }
+            
+            // Check if skip step won't go over the start of the day
+            if( world.getTime() + 100 < nextDaySunrise)
+            {
+//            ConsoleUtil.debugMessage("world.getFullTime() + 100: " + (world.getFullTime() + 100));
+                ((ServerWorld) world).setTimeOfDay(world.getTime() + 100 );
+                return true;
+            } else {
+                // Will overflow the day
+//            ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                ((ServerWorld) world).setTimeOfDay(nextDaySunrise);
+                return false;
+            }
+        }
+    }
+    
+    public static boolean attemptToClearWeatherDependingOnChance(World world, int chance)
+    {
+        chance = MathUtil.limitBetween(chance, 0, 100);
+
+//        ConsoleUtil.debugMessage("chance: " + chance);
+        if ( chance == 100 )
+        {
+            // Clear weather
+            ((ServerWorld) world).setWeather(5, 0, false, false );
+            return true;
+        } else if ( chance == 0 )
+        {
+//            ConsoleUtil.debugMessage("weather KEEP");
+            return false;
+        } else {
+            int random = new Random().nextInt(101);
+            if( random <= chance )
+            {
+//                ConsoleUtil.debugMessage("weather CLEARED 2: " + random);
+                ((ServerWorld) world).setWeather(5, 0, false, false );
+                return true;
+            }
+        }
+
+//        ConsoleUtil.debugMessage("weather KEEP 2");
+        return false;
+    }
+    
+    public static void wakeAllPlayers(World world)
+    {
+        for( PlayerEntity player : world.getPlayers() )
+        {
+            if( player.isSleeping() )
+            {
+                player.clearSleepingPosition();
+            }
         }
     }
     
