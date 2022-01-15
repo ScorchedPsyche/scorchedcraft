@@ -1,13 +1,45 @@
 [
   {
-    "minecraft_id": "elytra",
+    "minecraft_id": "bee_nest",
     "price_item1": "diamond",
-    "price1": 30
+    "amount": 1,
+    "price1": 10,
+    "uses_max": 4
   },
   {
-    "minecraft_id": "beacon",
+    "minecraft_id": "dragon_egg",
     "price_item1": "diamond",
-    "price1": 64
+    "amount": 1,
+    "price1": 32,
+    "uses_max": 2
+  },
+  {
+    "minecraft_id": "dragon_head",
+    "price_item1": "diamond",
+    "amount": 1,
+    "price1": 32,
+    "uses_max": 2
+  },
+  {
+    "minecraft_id": "heart_of_the_sea",
+    "price_item1": "diamond",
+    "amount": 1,
+    "price1": 64,
+    "uses_max": 1
+  },
+  {
+    "minecraft_id": "dragon_head",
+    "price_item1": "diamond",
+    "amount": 1,
+    "price1": 5,
+    "uses_max": 4
+  },
+  {
+    "minecraft_id": "dragon_head",
+    "price_item1": "diamond",
+    "amount": 16,
+    "price1": 10,
+    "uses_max": 4
   }
 ]
 

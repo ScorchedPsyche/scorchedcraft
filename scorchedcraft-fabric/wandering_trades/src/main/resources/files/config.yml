@@ -1,9 +1,9 @@
 remove_default_trades: true
 
 maximum_unique_trade_offers:
-  items: 5
+  player_heads: 3
+  items: 2
   decoration_heads: 20
-  player_heads: 5
 
 whitelist:
   enable_synchronization: true

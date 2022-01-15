@@ -327,11 +327,13 @@ public class MerchantManager {
         {
             Collections.shuffle( items );
             
-            int nbrOfTradesToAdd = items.size();
+            int nbrOfTradesToAdd;
             
-            if( nbrOfTradesToAdd > WanderingTrades.configuration.maximum_unique_trade_offers.items )
+            if( items.size() > WanderingTrades.configuration.maximum_unique_trade_offers.items )
             {
                 nbrOfTradesToAdd = WanderingTrades.configuration.maximum_unique_trade_offers.items;
+            } else {
+                nbrOfTradesToAdd = items.size();
             }
             
             for (int i = 0; i < nbrOfTradesToAdd; i++)
