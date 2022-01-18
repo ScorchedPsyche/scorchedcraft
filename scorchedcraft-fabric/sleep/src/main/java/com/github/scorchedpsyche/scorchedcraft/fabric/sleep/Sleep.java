@@ -42,7 +42,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Sleep implements ModInitializer {
-	;
 	public static File moduleFolder;
 	public static ConfigModel configuration;
 	
@@ -63,7 +62,7 @@ public class Sleep implements ModInitializer {
 				getClass().getClassLoader());
 			
 			// Copy default mod files if they're not present
-			resourcesUtil.copyToModuleConfigFolderIfNotExists(new ArrayList<String>() {{
+			resourcesUtil.copyToModuleConfigFolderIfNotExists(new ArrayList<>() {{
 				add("files/config.yml");
 			}});
 			
@@ -78,6 +77,17 @@ public class Sleep implements ModInitializer {
 					// Configuration loading done. Initialize Managers
 					ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
 						sleepManager = new SleepManager();
+						
+						new java.util.Timer().scheduleAtFixedRate(
+							new java.util.TimerTask() {
+								@Override
+								public void run() {
+									sleepManager.resetReservationsAndWarnPlayersIfNightIsReserved();
+								}
+							},
+							MathUtil.ticksToMilliseconds(1),
+							MathUtil.ticksToMilliseconds(100)
+						);
 						
 						Core.server.getCommandManager().getDispatcher().register(
 							CommandManager.literal("sc")
@@ -97,17 +107,19 @@ public class Sleep implements ModInitializer {
 						
 						UseBlockCallback.EVENT.register((player, world, hand, hitResult) ->
 						{
+							ServerPlayerEntity playerServer = ((ServerPlayerEntity) player);
+							
 							BlockEntity blockEntity =  player.getWorld().getBlockEntity( hitResult.getBlockPos() );
-//							ConsoleUtil.logMessage("RIGHTO CLICKO");
+//							ConsoleUtil.logMessage("RIGHT CLICK");
 							
 							if( blockEntity != null && blockEntity.getType() == BlockEntityType.BED &&
 								!world.getDimension().hasEnderDragonFight() && !world.getDimension().hasCeiling())
 							{
 //								ConsoleUtil.logMessage("TRYING SLEEP");
 								
-								if( !sleepManager.isNightReservedExceptForPlayer(player) )
+								if( !sleepManager.isNightReservedExceptForPlayer(playerServer) )
 								{
-									if( sleepManager.playerIsTryingToSleep(player, world) )
+									if( sleepManager.playerIsTryingToSleep(playerServer, world) )
 									{
 //										ConsoleUtil.logMessage("sleeping");
 										player.sleep( blockEntity.getPos() );

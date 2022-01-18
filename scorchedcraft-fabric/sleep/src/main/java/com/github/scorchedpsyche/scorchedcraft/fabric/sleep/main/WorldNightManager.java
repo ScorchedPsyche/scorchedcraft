@@ -38,8 +38,8 @@ public class WorldNightManager {
     
     @NotNull
     private final World world;
-    private List<PlayerEntity> reservations;
-    private List<PlayerEntity> playersInBed;
+    private List<ServerPlayerEntity> reservations;
+    private List<ServerPlayerEntity> playersInBed;
     private boolean skippingTheNight = false;
     
     @NotNull
@@ -47,7 +47,7 @@ public class WorldNightManager {
     {
         return this.world;
     }
-    public List<PlayerEntity> getReservations()
+    public List<ServerPlayerEntity> getReservations()
     {
         return reservations;
     }
@@ -67,7 +67,7 @@ public class WorldNightManager {
      * @param player The player that wishes to reserve the night
      * @return True if the night was reserved for the player. False if the player already had a reservation
      */
-    public boolean addNightReservationIfPossible(PlayerEntity player)
+    public boolean addNightReservationIfPossible(ServerPlayerEntity player)
     {
         if( reservations.contains(player) )
         {
@@ -83,7 +83,7 @@ public class WorldNightManager {
      * @param player The player to attempt to remove the reservation for
      * @return True if the night reservation for the player was removed. False if the player didn't have a reservation
      */
-    public boolean removeNightReservationIfExists(PlayerEntity player)
+    public boolean removeNightReservationIfExists(ServerPlayerEntity player)
     {
         return reservations.remove(player);
     }
@@ -181,7 +181,7 @@ public class WorldNightManager {
         return new StringFormattedModel();
     }
     
-    public void addPlayerInBed(PlayerEntity player)
+    public void addPlayerInBed(ServerPlayerEntity player)
     {
         if( !playersInBed.contains(player) )
         {
@@ -190,7 +190,7 @@ public class WorldNightManager {
         }
     }
     
-    public void removePlayerInBed(PlayerEntity player)
+    public void removePlayerInBed(ServerPlayerEntity player)
     {
 //        ConsoleUtil.debugMessage("removePlayerInBed");
         playersInBed.remove(player);

@@ -35,8 +35,10 @@ public class SleepManager {
     
     private final ServerWorld mainWorld = Core.server.getWorlds().iterator().next();
     private final WorldNightManager worldNightManager = new WorldNightManager(mainWorld);
+    public final long lowerNightReservationLimit = WorldUtil.DayNightCycle.SUNRISE - 110L;
+    public final long upperNightReservationLimit = WorldUtil.DayNightCycle.SUNRISE + 110L;
     
-    public boolean isNightReservedExceptForPlayer(PlayerEntity player)
+    public boolean isNightReservedExceptForPlayer(ServerPlayerEntity player)
     {
 //        WorldNightManager worldNight = worlds.putIfAbsent( world, new WorldNightManager(world) );
     
@@ -60,7 +62,7 @@ public class SleepManager {
      * @param player The player that is trying to sleep which must be processed
      * @param world
      */
-    public boolean playerIsTryingToSleep(PlayerEntity player, World world)
+    public boolean playerIsTryingToSleep(ServerPlayerEntity player, World world)
     {
 //        ConsoleUtil.logMessage("playerIsTryingToSleep");
         // Check if it's OK for the player to enter the bed right now by Vanilla standards
@@ -123,7 +125,7 @@ public class SleepManager {
         return true;
     }
     
-    public void toggleNightReservationForPlayer(PlayerEntity player)
+    public void toggleNightReservationForPlayer(ServerPlayerEntity player)
     {
 //        ConsoleUtil.debugMessage("toggleNightReservationForPlayer");
         // Check if world has daylight cycle
@@ -143,7 +145,7 @@ public class SleepManager {
         }
     }
     
-    public void addNightReservationIfPossibleAndWarnPlayers(PlayerEntity player)
+    public void addNightReservationIfPossibleAndWarnPlayers(ServerPlayerEntity player)
     {
         // Attempt to remove night reservation for player
         if( worldNightManager.addNightReservationIfPossible(player) )
@@ -155,7 +157,7 @@ public class SleepManager {
         }
     }
     
-    public void removeNightReservationIfExistsAndWarnPlayers(PlayerEntity player)
+    public void removeNightReservationIfExistsAndWarnPlayers(ServerPlayerEntity player)
     {
         // Attempt to remove night reservation for player
         if( worldNightManager.removeNightReservationIfExists(player) )
@@ -275,6 +277,21 @@ public class SleepManager {
         for( ServerPlayerEntity player : Core.server.getPlayerManager().getPlayerList() )
         {
             this.sendMessageToPlayer(player, message.toString());
+        }
+    }
+    
+    public void resetReservationsAndWarnPlayersIfNightIsReserved()
+    {
+        if( mainWorld.getTimeOfDay() >= this.lowerNightReservationLimit &&
+            mainWorld.getTimeOfDay() <= this.upperNightReservationLimit )
+        {
+            if( worldNightManager.getReservations().size() > 0 )
+            {
+                this.sendMessageToAllPlayers(new StringFormattedModel()
+                    .add("Night reservations ").green("CLEARED").white("! You may sleep/reserve this day's night.")
+                );
+                worldNightManager.resetReservations();
+            }
         }
     }
     
