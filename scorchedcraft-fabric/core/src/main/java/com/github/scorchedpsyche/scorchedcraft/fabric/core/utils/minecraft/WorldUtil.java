@@ -22,6 +22,7 @@ import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.MathUti
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -72,51 +73,28 @@ public class WorldUtil {
 
         public static boolean canBedsBeUsed(@NotNull World world)
         {
-            ConsoleUtil.logMessage("world.getTimeOfDay() " + world.getTimeOfDay());
+//            ConsoleUtil.logMessage("world.getTimeOfDay() " + world.getTimeOfDay());
             if( !world.isRaining() )
             {
-                ConsoleUtil.logMessage("!world.isRaining()");
-                ConsoleUtil.logMessage("BEDS_CAN_BE_USED_START " + DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START);
-                ConsoleUtil.logMessage("BEDS_CAN_BE_USED_END " + DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END);
+//                ConsoleUtil.logMessage("!world.isRaining()");
+//                ConsoleUtil.logMessage("BEDS_CAN_BE_USED_START " + DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START);
+//                ConsoleUtil.logMessage("BEDS_CAN_BE_USED_END " + DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END);
                 // Not raining. Use time for clear weather
                 return world.getTimeOfDay() >= DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START
                     && world.getTimeOfDay() < DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END;
             }
     
-            ConsoleUtil.logMessage("world.isRaining()");
-            ConsoleUtil.logMessage("BEDS_CAN_BE_USED_START " + DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START);
-            ConsoleUtil.logMessage("BEDS_CAN_BE_USED_END " + DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END);
+//            ConsoleUtil.logMessage("world.isRaining()");
+//            ConsoleUtil.logMessage("BEDS_CAN_BE_USED_START " + DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START);
+//            ConsoleUtil.logMessage("BEDS_CAN_BE_USED_END " + DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END);
             // Use raining time
             return world.getTimeOfDay() >= DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START
                 && world.getTimeOfDay() < DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END;
         }
-
-        public static boolean isWorldAtBedsCanBeUsedEndTime(World world)
-        {
-            if( !world.isRaining() )
-            {
-                // Not raining. Use time for clear weather
-                return world.getTime() == DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END;
-            }
-
-            // Use raining time
-            return world.getTime() == DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END;
-        }
     
-        public static boolean skipNightUntilBedsCannotBeUsed(World world)
+        public static boolean skipNightUntilBedsCannotBeUsed(long nextDaySunrise, World world)
         {
-            long currentDaySunrise = 24000L * Math.floorDiv(world.getTimeOfDay(), 24000L);
-            long nextDaySunrise;
             long nextTimeOfDay = world.getTimeOfDay() + 100L;
-            
-            if( !world.isRaining() && !world.isThundering() )
-            {
-                // Weather clear
-                nextDaySunrise = DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END + currentDaySunrise;
-            } else {
-                // Raining or thundering
-                nextDaySunrise = DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END + currentDaySunrise;
-            }
             
             // Check if skip step won't go over the start of the day
             if( nextTimeOfDay < nextDaySunrise)
@@ -124,35 +102,34 @@ public class WorldUtil {
 //                ConsoleUtil.debugMessage("world.getTime(): " + world.getTime());
 //                ConsoleUtil.debugMessage("world.getTimeOfDay(): " + world.getTimeOfDay());
 //                ConsoleUtil.debugMessage("world.getTimeOfDay() + 100: " + (world.getTimeOfDay() + 100L));
-//                ConsoleUtil.debugMessage("nextDaySunrise: " + nextDaySunrise);
-//                ConsoleUtil.logMessage("NOT sunrise" );
                 ((ServerWorld) world).setTimeOfDay( nextTimeOfDay );
-                ConsoleUtil.logMessage(nextTimeOfDay+ "/" + nextDaySunrise);
+//                ConsoleUtil.logMessage(nextTimeOfDay+ "/" + nextDaySunrise);
                 return true;
             } else {
                 // Will overflow the day
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
-                ConsoleUtil.debugMessage("SUNRISE!!!!" );
                 ((ServerWorld) world).setTimeOfDay(nextDaySunrise);
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+//                ConsoleUtil.debugMessage("SUNRISE!!!!" );
+                
                 return false;
             }
         }
@@ -166,18 +143,22 @@ public class WorldUtil {
         if ( chance == 100 )
         {
             // Clear weather
-            ((ServerWorld) world).setWeather(5, 0, false, false );
+//            ConsoleUtil.debugMessage("chance == 100");
+    
+            ((ServerWorld) world).setWeather(new Random().nextInt(), 0, false, false );
             return true;
         } else if ( chance == 0 )
         {
+//            ConsoleUtil.debugMessage("chance == 0");
 //            ConsoleUtil.debugMessage("weather KEEP");
             return false;
         } else {
             int random = new Random().nextInt(101);
+//            ConsoleUtil.debugMessage("random/chance " + random + "/" + chance);
             if( random <= chance )
             {
-//                ConsoleUtil.debugMessage("weather CLEARED 2: " + random);
-                ((ServerWorld) world).setWeather(5, 0, false, false );
+//                ConsoleUtil.debugMessage("weather CLEARED by change");
+                ((ServerWorld) world).setWeather(new Random().nextInt(), 0, false, false );
                 return true;
             }
         }
@@ -186,9 +167,9 @@ public class WorldUtil {
         return false;
     }
     
-    public static void wakeAllPlayers(World world)
+    public static void wakeAllPlayers()
     {
-        for( PlayerEntity player : world.getPlayers() )
+        for( ServerPlayerEntity player : Core.server.getPlayerManager().getPlayerList() )
         {
             if( player.isSleeping() )
             {

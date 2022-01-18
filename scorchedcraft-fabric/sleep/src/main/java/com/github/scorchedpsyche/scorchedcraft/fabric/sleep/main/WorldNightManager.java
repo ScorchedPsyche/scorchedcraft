@@ -16,11 +16,13 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.sleep.main;
 
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.PlayerUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.sleep.Sleep;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -156,6 +158,8 @@ public class WorldNightManager {
     
     public StringFormattedModel getStringOfPlayersInBed()
     {
+        this.updatePlayersInBedList();
+        
         if( !playersInBed.isEmpty() )
         {
             StringFormattedModel listOfPlayers = new StringFormattedModel();
@@ -202,6 +206,19 @@ public class WorldNightManager {
     public boolean isThereAtLeastOnePlayerInBed()
     {
         return !this.playersInBed.isEmpty();
+    }
+    
+    public void updatePlayersInBedList()
+    {
+        this.playersInBed.clear();
+        
+        for( ServerPlayerEntity player : Core.server.getPlayerManager().getPlayerList() )
+        {
+            if( player.isSleeping() )
+            {
+                this.playersInBed.add(player);
+            }
+        }
     }
     
     private void sendMessageToPlayer(PlayerEntity player, String message)

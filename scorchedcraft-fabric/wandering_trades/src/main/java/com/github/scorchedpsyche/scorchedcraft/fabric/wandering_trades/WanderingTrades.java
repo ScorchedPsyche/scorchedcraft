@@ -24,16 +24,18 @@ import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.Resourc
 import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.main.MerchantManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.main.TradeListManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.wandering_trades.model.ConfigModel;
+import com.mojang.brigadier.StringReader;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.server.Whitelist;
 import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.dedicated.command.WhitelistCommand;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.village.TradeOffer;
+import net.minecraft.util.registry.Registry;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -42,6 +44,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class WanderingTrades implements ModInitializer {
 	public static File moduleFolder;
@@ -108,6 +111,19 @@ public class WanderingTrades implements ModInitializer {
 					
 					ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
 						loadPlayerHeads();
+						
+//						Core.server.getCommandManager().getDispatcher().register(
+//							CommandManager.literal("sc")
+//								.then(CommandManager.argument("wandering_trades", StringReader::readString)
+//									.requires(source -> source.hasPermissionLevel(4))
+//									.suggests(CompletionProviders)
+//									.executes(
+//
+//
+//
+//										return 0;
+//									)
+//								)
 					});
 				}
 			}
@@ -121,7 +137,7 @@ public class WanderingTrades implements ModInitializer {
 	
 	public static void loadPlayerHeads()
 	{
-		merchantManager.playerHeadsWhitelisted = new ArrayList<>();
+		merchantManager.whitelistedPlayerHeadOffers = new ArrayList<>();
 		Whitelist whitelist = Core.server.getPlayerManager().getWhitelist();
 		String[] players = whitelist.getNames();;
 		

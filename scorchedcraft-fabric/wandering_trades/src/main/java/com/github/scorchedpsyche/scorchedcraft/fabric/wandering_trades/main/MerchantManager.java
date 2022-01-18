@@ -44,10 +44,10 @@ public class MerchantManager {
         this.setup();
     }
     
-    private final List<TradeOffer> decorationHeads = new ArrayList<>();
-    private final List<TradeOffer> items = new ArrayList<>();
-    private final List<TradeOffer> playerHeads = new ArrayList<>();
-    public List<TradeOffer> playerHeadsWhitelisted;
+    private final List<TradeOffer> decorationHeadOffers = new ArrayList<>();
+    private final List<TradeOffer> itemOffers = new ArrayList<>();
+    private final List<TradeOffer> playerHeadOffers = new ArrayList<>();
+    public List<TradeOffer> whitelistedPlayerHeadOffers;
     
     /***
      * Setup for the Merchant Manager class which preloads user files and creates static lists from them.
@@ -149,7 +149,7 @@ public class MerchantManager {
             Item secondBuyItem = Registry.ITEM.get( Identifier.tryParse(trade.getPriceItem2()) );
         
             // Ingredient2 valid - add trade with both ingredients
-            items.add(new TradeOffer(
+            itemOffers.add(new TradeOffer(
                 new ItemStack(firstBuyItem, trade.getPrice1()),
                 new ItemStack(secondBuyItem, trade.getPrice2()),
                 new ItemStack(sellItem, trade.getAmount()),
@@ -160,7 +160,7 @@ public class MerchantManager {
         } else
         {
             // No second ingredient - add trade
-            items.add(new TradeOffer(
+            itemOffers.add(new TradeOffer(
                 new ItemStack(firstBuyItem, trade.getPrice1()),
                 new ItemStack(sellItem, trade.getAmount()),
                 trade.getUsesMax(),
@@ -187,7 +187,7 @@ public class MerchantManager {
             Item secondBuyItem = Registry.ITEM.get( Identifier.tryParse(trade.getPriceItem2()) );
         
             // Ingredient2 valid - add trade with both ingredients
-            decorationHeads.add(new TradeOffer(
+            decorationHeadOffers.add(new TradeOffer(
                 new ItemStack(firstBuyItem, trade.getPrice1()),
                 new ItemStack(secondBuyItem, trade.getPrice2()),
                 decorationHead,
@@ -198,7 +198,7 @@ public class MerchantManager {
         } else
         {
             // No second ingredient - add trade
-            decorationHeads.add(new TradeOffer(
+            decorationHeadOffers.add(new TradeOffer(
                 new ItemStack(firstBuyItem, trade.getPrice1()),
                 decorationHead,
                 trade.getUsesMax(),
@@ -215,6 +215,8 @@ public class MerchantManager {
      */
     private ItemStack createDecorationHead(TradeEntryModel trade)
     {
+//        Item headItem = new Item(new Item.Settings().group(WanderingTrades.HEAD_ITEM_GROUP));
+        
         UUID randomUUID = UUID.randomUUID();
         GameProfile profile = new GameProfile(randomUUID, trade.getName());
         profile.getProperties().put("textures", new Property("textures", trade.getTexture()));
@@ -222,6 +224,14 @@ public class MerchantManager {
         ItemStack decorationHead = new ItemStack( Items.PLAYER_HEAD, trade.getAmount());
         NbtCompound nbt = decorationHead.getOrCreateNbt();
         nbt.put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile) );
+        
+//        UUID randomUUID = UUID.randomUUID();
+//        GameProfile profile = new GameProfile(randomUUID, trade.getName());
+//        profile.getProperties().put("textures", new Property("textures", trade.getTexture()));
+//
+//        ItemStack decorationHead = new ItemStack( Items.PLAYER_HEAD, trade.getAmount());
+//        NbtCompound nbt = decorationHead.getOrCreateNbt();
+//        nbt.put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile) );
         
         return decorationHead;
     }
@@ -239,7 +249,7 @@ public class MerchantManager {
             // Ingredient2 valid - add trade with both ingredients
             Item secondBuyItem = Registry.ITEM.get( Identifier.tryParse(WanderingTrades.configuration.whitelist.price.item2.minecraft_id) );
         
-            playerHeadsWhitelisted.add(new TradeOffer(
+            whitelistedPlayerHeadOffers.add(new TradeOffer(
                 new ItemStack(firstBuyItem, WanderingTrades.configuration.whitelist.price.item1.quantity),
                 new ItemStack(secondBuyItem, WanderingTrades.configuration.whitelist.price.item2.quantity),
                 playerHead,
@@ -249,7 +259,7 @@ public class MerchantManager {
             ));
         } else {
             // No second ingredient - add trade
-            playerHeadsWhitelisted.add(new TradeOffer(
+            whitelistedPlayerHeadOffers.add(new TradeOffer(
                 new ItemStack(firstBuyItem, WanderingTrades.configuration.whitelist.price.item1.quantity),
                 playerHead,
                 WanderingTrades.configuration.whitelist.maximum_number_of_trades,
@@ -298,11 +308,11 @@ public class MerchantManager {
      */
     public TradeOfferList addWhitelistedPlayerHeadsToOffers(TradeOfferList tradeOffers)
     {
-        if( !playerHeadsWhitelisted.isEmpty() )
+        if( !whitelistedPlayerHeadOffers.isEmpty() )
         {
-            Collections.shuffle( playerHeadsWhitelisted );
+            Collections.shuffle(whitelistedPlayerHeadOffers);
             
-            int nbrOfTradesToAdd = playerHeadsWhitelisted.size();
+            int nbrOfTradesToAdd = whitelistedPlayerHeadOffers.size();
             
             if( nbrOfTradesToAdd > WanderingTrades.configuration.whitelist.number_of_player_head_offers )
             {
@@ -311,7 +321,7 @@ public class MerchantManager {
             
             for (int i = 0; i < nbrOfTradesToAdd; i++)
             {
-                tradeOffers.add( playerHeadsWhitelisted.get(i) );
+                tradeOffers.add( whitelistedPlayerHeadOffers.get(i) );
             }
         }
         
@@ -323,22 +333,22 @@ public class MerchantManager {
      */
     public TradeOfferList addItemsToOffers(TradeOfferList tradeOffers)
     {
-        if( !items.isEmpty() )
+        if( !itemOffers.isEmpty() )
         {
-            Collections.shuffle( items );
+            Collections.shuffle(itemOffers);
             
             int nbrOfTradesToAdd;
             
-            if( items.size() > WanderingTrades.configuration.maximum_unique_trade_offers.items )
+            if( itemOffers.size() > WanderingTrades.configuration.maximum_unique_trade_offers.items )
             {
                 nbrOfTradesToAdd = WanderingTrades.configuration.maximum_unique_trade_offers.items;
             } else {
-                nbrOfTradesToAdd = items.size();
+                nbrOfTradesToAdd = itemOffers.size();
             }
             
             for (int i = 0; i < nbrOfTradesToAdd; i++)
             {
-                tradeOffers.add( items.get(i) );
+                tradeOffers.add( itemOffers.get(i) );
             }
         }
         
@@ -350,11 +360,11 @@ public class MerchantManager {
      */
     public TradeOfferList addDecorationHeadsToOffers(TradeOfferList tradeOffers)
     {
-        if( !decorationHeads.isEmpty() )
+        if( !decorationHeadOffers.isEmpty() )
         {
-            Collections.shuffle( decorationHeads );
+            Collections.shuffle(decorationHeadOffers);
             
-            int nbrOfTradesToAdd = decorationHeads.size();
+            int nbrOfTradesToAdd = decorationHeadOffers.size();
             
             if( nbrOfTradesToAdd > WanderingTrades.configuration.maximum_unique_trade_offers.decoration_heads )
             {
@@ -363,7 +373,7 @@ public class MerchantManager {
             
             for (int i = 0; i < nbrOfTradesToAdd; i++)
             {
-                tradeOffers.add( decorationHeads.get(i) );
+                tradeOffers.add( decorationHeadOffers.get(i) );
             }
         }
         

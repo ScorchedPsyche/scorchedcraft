@@ -27,6 +27,7 @@ import com.github.scorchedpsyche.scorchedcraft.fabric.sleep.model.ConfigModel;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.server.command.CommandManager;
@@ -82,10 +83,10 @@ public class Sleep implements ModInitializer {
 							CommandManager.literal("sc")
 								.then( CommandManager.literal("sleep")
 										.executes( context -> {
-									ConsoleUtil.debugMessage("command executed");
+//									ConsoleUtil.debugMessage("command executed");
 									if( context.getSource().getEntity() != null && context.getSource().getEntity() instanceof ServerPlayerEntity )
 									{
-										ConsoleUtil.debugMessage("command is player");
+//										ConsoleUtil.debugMessage("command is player");
 										sleepManager.toggleNightReservationForPlayer(context.getSource().getPlayer());
 									}
 									
@@ -97,21 +98,31 @@ public class Sleep implements ModInitializer {
 						UseBlockCallback.EVENT.register((player, world, hand, hitResult) ->
 						{
 							BlockEntity blockEntity =  player.getWorld().getBlockEntity( hitResult.getBlockPos() );
-							ConsoleUtil.logMessage("RIGHTO CLICKO");
+//							ConsoleUtil.logMessage("RIGHTO CLICKO");
 							
-							if( blockEntity != null && blockEntity.getType() == BlockEntityType.BED)
+							if( blockEntity != null && blockEntity.getType() == BlockEntityType.BED &&
+								!world.getDimension().hasEnderDragonFight() && !world.getDimension().hasCeiling())
 							{
-								ConsoleUtil.logMessage("TRYING SLEEP");
-								if( sleepManager.playerIsTryingToSleep(player, world) )
+//								ConsoleUtil.logMessage("TRYING SLEEP");
+								
+								if( !sleepManager.isNightReservedExceptForPlayer(player) )
 								{
-									ConsoleUtil.logMessage("sleeping");
-									player.sleep( blockEntity.getPos() );
+									if( sleepManager.playerIsTryingToSleep(player, world) )
+									{
+//										ConsoleUtil.logMessage("sleeping");
+										player.sleep( blockEntity.getPos() );
+										return ActionResult.FAIL;
+									}
+								} else {
 									return ActionResult.FAIL;
 								}
 							}
 							
 							return ActionResult.PASS;
 						});
+						
+						ServerPlayConnectionEvents.DISCONNECT.register((handler, server2) ->
+							this.sleepManager.removeNightReservationIfExistsAndWarnPlayers(handler.player));
 					});
 				}
 			} catch (IOException e) {

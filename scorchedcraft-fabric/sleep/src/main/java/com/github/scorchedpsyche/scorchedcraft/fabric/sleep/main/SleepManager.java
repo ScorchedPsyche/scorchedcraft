@@ -19,28 +19,41 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.sleep.main;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.PlayerUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.WorldUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.MathUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.sleep.Sleep;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
 
 public class SleepManager {
     public SleepManager()
     {
-        // Populate worlds
-        for( World world : Core.server.getWorlds() )
-        {
-            worlds.put(world, new WorldNightManager(world));
-        }
     }
     
-    private final HashMap<World, WorldNightManager> worlds = new HashMap<>();
+    private final ServerWorld mainWorld = Core.server.getWorlds().iterator().next();
+    private final WorldNightManager worldNightManager = new WorldNightManager(mainWorld);
+    
+    public boolean isNightReservedExceptForPlayer(PlayerEntity player)
+    {
+//        WorldNightManager worldNight = worlds.putIfAbsent( world, new WorldNightManager(world) );
+    
+        this.removeNightReservationIfExistsAndWarnPlayers(player);
+        
+        if( worldNightManager.hasReservations() )
+        {
+            // Night still reserved. Warn player
+            sendMessageToPlayer(player, new StringFormattedModel()
+                .add("Night is ").redR("reserved").add(" by:").nl()
+                .add(worldNightManager.getStringOfPlayersWithReservationInWorld()).toString());
+            
+            return true;
+        }
+        
+        return false;
+    }
     
     /**
      * Processes any event of a player trying to sleep, whether it's valid or not (E.g.: trying to sleep in the Nether/End).
@@ -49,45 +62,43 @@ public class SleepManager {
      */
     public boolean playerIsTryingToSleep(PlayerEntity player, World world)
     {
-        ConsoleUtil.logMessage("playerIsTryingToSleep");
+//        ConsoleUtil.logMessage("playerIsTryingToSleep");
         // Check if it's OK for the player to enter the bed right now by Vanilla standards
         if( world.isNight() || world.isRaining() || world.isThundering() )
         {
-            ConsoleUtil.logMessage("world.isNight() || world.isRaining() || world.isThundering()");
+//            ConsoleUtil.logMessage("world.isNight() || world.isRaining() || world.isThundering()");
             // Sleep is Vanilla-valid, which is either:
             // 1 - It's night;
             // 2 - It's day and thundering
 
             // Add the world to Night Manager if it doesn't exists
-            WorldNightManager worldNight = worlds.putIfAbsent( world, new WorldNightManager(world) );
 
             // Add player to the playersInBed list
-            assert worldNight != null;
-            worldNight.addPlayerInBed(player);
+            worldNightManager.addPlayerInBed(player);
 
             // Remove player reservation if they have one
-            this.removeNightReservationIfExistsAndWarnPlayers(player, worldNight);
+            this.removeNightReservationIfExistsAndWarnPlayers(player);
 
             // Check if the night is still reserved
-            if( !worldNight.hasReservations() )
+            if( !worldNightManager.hasReservations() )
             {
-                ConsoleUtil.logMessage("!hasReservations");
+//                ConsoleUtil.logMessage("!hasReservations");
                 // No reservations. Check if it's Night time
-                if( WorldUtil.DayNightCycle.canBedsBeUsed(worldNight.getWorld()) )
+                if( WorldUtil.DayNightCycle.canBedsBeUsed(worldNightManager.getWorld()) )
                 {
-                    ConsoleUtil.logMessage("canBedsBeUsed");
+//                    ConsoleUtil.logMessage("canBedsBeUsed");
                     // Night Time
-                    this.initiateTimeSkipIfNotAlreadyStarted(worldNight);
+                    this.initiateTimeSkipIfNotAlreadyStarted();
 //                    worldNight.addPlayerWhoSlept( event.getPlayer() );
                 } else {
-                    ConsoleUtil.logMessage("!canBedsBeUsed");
+//                    ConsoleUtil.logMessage("!canBedsBeUsed");
                     // Day Time. Since the sleep attempt is Vanilla valid, then it must be thundering.
                     // Check if server allows sleep during thunderstorm
                     if( Sleep.configuration.chance_to_clear_weather_after_players_sleep > 0
                         && Sleep.configuration.can_player_skip_weather_by_sleeping_during_the_day )
                     {
                         // It's OK to sleep to skip thunderstorms
-                        this.initiateTimeSkipIfNotAlreadyStarted(worldNight);
+                        this.initiateTimeSkipIfNotAlreadyStarted();
 //                        worldNight.addPlayerWhoSlept( event.getPlayer() );
                     } else {
                         // Cannot skip thunderstorms because of server configuration
@@ -101,7 +112,7 @@ public class SleepManager {
                 // Night still reserved. Warn player
                 sendMessageToPlayer(player, new StringFormattedModel()
                     .add("Night is ").redR("reserved").add(" by:").nl()
-                    .add(worldNight.getStringOfPlayersWithReservationInWorld()).toString());
+                    .add(worldNightManager.getStringOfPlayersWithReservationInWorld()).toString());
                 return false;
             }
         } else {
@@ -114,19 +125,17 @@ public class SleepManager {
     
     public void toggleNightReservationForPlayer(PlayerEntity player)
     {
-        ConsoleUtil.debugMessage("toggleNightReservationForPlayer");
+//        ConsoleUtil.debugMessage("toggleNightReservationForPlayer");
         // Check if world has daylight cycle
         if( !player.getWorld().getDimension().hasEnderDragonFight()
             && !player.getWorld().getDimension().hasCeiling() )
         {
-            WorldNightManager worldNight = worlds.get( player.getWorld() );
-            
             // Attempt to add a night reservation for player
-            if( !worldNight.playerHasReservation(player) )
+            if( !worldNightManager.playerHasReservation(player) )
             {
-                this.addNightReservationIfPossibleAndWarnPlayers(player, worldNight);
+                this.addNightReservationIfPossibleAndWarnPlayers(player);
             } else {
-                this.removeNightReservationIfExistsAndWarnPlayers(player, worldNight);
+                this.removeNightReservationIfExistsAndWarnPlayers(player);
             }
         } else {
             sendMessageToPlayer(player, new StringFormattedModel().add("This world ").redR("doesn't have")
@@ -134,45 +143,58 @@ public class SleepManager {
         }
     }
     
-    public void addNightReservationIfPossibleAndWarnPlayers(PlayerEntity player, WorldNightManager worldNight)
+    public void addNightReservationIfPossibleAndWarnPlayers(PlayerEntity player)
     {
         // Attempt to remove night reservation for player
-        if( worldNight.addNightReservationIfPossible(player) )
+        if( worldNightManager.addNightReservationIfPossible(player) )
         {
             // Didn't have a night reservation. Let players know
             StringFormattedModel message = new StringFormattedModel().aquaR( player.getDisplayName().asString() ).add(" has ")
                 .greenR("reserved").add(" the night!");
-            sendMessageToAllPlayersInWorld(worldNight.getWorld(), message);
+            sendMessageToAllPlayers(message);
         }
     }
     
-    public void removeNightReservationIfExistsAndWarnPlayers(PlayerEntity player, WorldNightManager worldNight)
+    public void removeNightReservationIfExistsAndWarnPlayers(PlayerEntity player)
     {
         // Attempt to remove night reservation for player
-        if( worldNight.removeNightReservationIfExists(player) )
+        if( worldNightManager.removeNightReservationIfExists(player) )
         {
             // Didn't have a night reservation. Let players know
             StringFormattedModel message = new StringFormattedModel().aquaR( player.getDisplayName().asString() ).add(" has ")
                 .redR("unreserved").add(" the night!");
-            sendMessageToAllPlayersInWorld(worldNight.getWorld(), message);
+            sendMessageToAllPlayers(message);
         }
     }
     
-    private void initiateTimeSkipIfNotAlreadyStarted(@NotNull WorldNightManager worldNight)
+    private void initiateTimeSkipIfNotAlreadyStarted()
     {
-        ConsoleUtil.logMessage("initiateTimeSkipIfNotAlreadyStarted");
-        // Check if time is already being skipped
-        if( !worldNight.isSkippingTheNight() )
+    
+        long currentDaySunrise = 24000L * Math.floorDiv(mainWorld.getTimeOfDay(), 24000L);
+        long nextDaySunrise;
+    
+        if( !mainWorld.isRaining() && !mainWorld.isThundering() )
         {
-            ConsoleUtil.logMessage("!worldNight.isSkippingTheNight()");
+            // Weather clear
+            nextDaySunrise = WorldUtil.DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END + currentDaySunrise;
+        } else {
+            // Raining or thundering
+            nextDaySunrise = WorldUtil.DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END + currentDaySunrise;
+        }
+        
+//        ConsoleUtil.logMessage("initiateTimeSkipIfNotAlreadyStarted");
+        // Check if time is already being skipped
+        if( !worldNightManager.isSkippingTheNight() )
+        {
+//            ConsoleUtil.logMessage("!worldNightManager.isSkippingTheNight()");
             // World is not skipping the night. Initiate it
-            worldNight.setSkippingTheNight(true);
+            worldNightManager.setSkippingTheNight(true);
     
             new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        doNightSkip(worldNight);
+                        doNightSkip(nextDaySunrise);
                     }
                 },
                 MathUtil.ticksToMilliseconds(100)
@@ -180,64 +202,79 @@ public class SleepManager {
         }
     }
     
-    private void doNightSkip(@NotNull WorldNightManager worldNight)
+    private void doNightSkip(long nextDaySunrise)
     {
-        ConsoleUtil.logMessage("doNightSkip");
+//        ConsoleUtil.logMessage("doNightSkip");
         // Check if night was being skipped
-        if( worldNight.isSkippingTheNight() )
+        if( worldNightManager.isSkippingTheNight() )
         {
-            ConsoleUtil.logMessage("isSkippingTheNight");
+//            ConsoleUtil.logMessage("isSkippingTheNight");
             // Check if any players in world are asleep
-            if( worldNight.isThereAtLeastOnePlayerInBed() )
+            if( worldNightManager.isThereAtLeastOnePlayerInBed() )
             {
-                ConsoleUtil.logMessage("isThereAtLeastOnePlayerInBed");
+//                ConsoleUtil.logMessage("isThereAtLeastOnePlayerInBed");
                 // At least one player asleep. Attempt to skip the night
-                if( WorldUtil.DayNightCycle.skipNightUntilBedsCannotBeUsed(worldNight.getWorld()) )
+                if( WorldUtil.DayNightCycle.skipNightUntilBedsCannotBeUsed(nextDaySunrise, worldNightManager.getWorld()) )
                 {
-                    ConsoleUtil.logMessage("skipNightUntilBedsCannotBeUsed");
+//                    ConsoleUtil.logMessage("skipNightUntilBedsCannotBeUsed");
                     // Not yet daylight. Schedule another night skip
                     new java.util.Timer().schedule(
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
-                                doNightSkip(worldNight);
-                                attemptToEndNightSkip(worldNight);
+                                doNightSkip(nextDaySunrise);
+                                attemptToEndNightSkip(nextDaySunrise);
                             }
                         },
                         MathUtil.ticksToMilliseconds(1)
                     );
                 } else {
-                    worldNight.setSkippingTheNight(false);
-                    ConsoleUtil.logMessage("!skipNightUntilBedsCannotBeUsed");
+                    worldNightManager.setSkippingTheNight(false);
+//                    ConsoleUtil.logMessage("!skipNightUntilBedsCannotBeUsed");
                 }
             }
         }
     }
     
-    private void attemptToEndNightSkip(@NotNull WorldNightManager worldNight)
+    private void attemptToEndNightSkip(long nextDaySunrise)
     {
-        ConsoleUtil.logMessage("attemptToEndNightSkip");
+//        ConsoleUtil.logMessage("attemptToEndNightSkip");
         // There are no asleep players. Check if the world is at beds can be used end time
-        if( WorldUtil.DayNightCycle.isWorldAtBedsCanBeUsedEndTime( worldNight.getWorld() ) )
+        if( !this.areAnyPlayersSleepingOnBed() )
         {
-            ConsoleUtil.logMessage("isWorldAtBedsCanBeUsedEndTime");
+            worldNightManager.setSkippingTheNight(false);
+        } else if ( mainWorld.getTimeOfDay() >= nextDaySunrise )
+        {
             // World is one tick after beds can be used ALONG with night was being skipped.
             // This means we should reset everything and let other players know who skipped the night
             WorldUtil.attemptToClearWeatherDependingOnChance(
-                worldNight.getWorld(), Sleep.configuration.chance_to_clear_weather_after_players_sleep );
-            sendMessageToAllPlayersInWorld(worldNight.getWorld(), new StringFormattedModel()
-                .add("Sleepy ones: ").add(worldNight.getStringOfPlayersInBed()));
-            worldNight.resetReservations();
-            WorldUtil.wakeAllPlayers(worldNight.getWorld());
-            worldNight.setSkippingTheNight(false);
+                worldNightManager.getWorld(), Sleep.configuration.chance_to_clear_weather_after_players_sleep );
+            sendMessageToAllPlayers( new StringFormattedModel()
+                .add("Sleepy ones: ").add(worldNightManager.getStringOfPlayersInBed()));
+            worldNightManager.resetReservations();
+            WorldUtil.wakeAllPlayers();
+            worldNightManager.setSkippingTheNight(false);
         }
     }
     
-    private void sendMessageToAllPlayersInWorld(World world, StringFormattedModel message)
+    private boolean areAnyPlayersSleepingOnBed()
     {
-        for( PlayerEntity playerInWorld : world.getPlayers() )
+        for(ServerPlayerEntity player : Core.server.getPlayerManager().getPlayerList() )
         {
-            this.sendMessageToPlayer(playerInWorld, message.toString());
+            if( player.isSleeping() )
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private void sendMessageToAllPlayers(StringFormattedModel message)
+    {
+        for( ServerPlayerEntity player : Core.server.getPlayerManager().getPlayerList() )
+        {
+            this.sendMessageToPlayer(player, message.toString());
         }
     }
     
