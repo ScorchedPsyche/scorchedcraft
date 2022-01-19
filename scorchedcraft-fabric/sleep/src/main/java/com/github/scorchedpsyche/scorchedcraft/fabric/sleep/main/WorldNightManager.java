@@ -203,10 +203,10 @@ public class WorldNightManager {
         }
     }
     
-    public boolean isThereAtLeastOnePlayerInBed()
-    {
-        return !this.playersInBed.isEmpty();
-    }
+//    public boolean isThereAtLeastOnePlayerInBed()
+//    {
+//        return !this.playersInBed.isEmpty();
+//    }
     
     public void updatePlayersInBedList()
     {

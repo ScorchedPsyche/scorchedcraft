@@ -119,17 +119,19 @@ public class Sleep implements ModInitializer {
 								
 								if( !sleepManager.isNightReservedExceptForPlayer(playerServer) )
 								{
-									if( sleepManager.playerIsTryingToSleep(playerServer, world) )
+									if( sleepManager.playerIsTryingToSleep(playerServer) )
 									{
 //										ConsoleUtil.logMessage("sleeping");
 										player.sleep( blockEntity.getPos() );
 										return ActionResult.FAIL;
 									}
 								} else {
+//									ConsoleUtil.logMessage("ActionResult.FAIL");
 									return ActionResult.FAIL;
 								}
 							}
 							
+//							ConsoleUtil.logMessage("ActionResult.PASS");
 							return ActionResult.PASS;
 						});
 						

@@ -19,6 +19,7 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.sleep.main;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.PlayerUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.WorldUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.MathUtil;
@@ -62,13 +63,13 @@ public class SleepManager {
      * @param player The player that is trying to sleep which must be processed
      * @param world
      */
-    public boolean playerIsTryingToSleep(ServerPlayerEntity player, World world)
+    public boolean playerIsTryingToSleep(ServerPlayerEntity player)
     {
 //        ConsoleUtil.logMessage("playerIsTryingToSleep");
         // Check if it's OK for the player to enter the bed right now by Vanilla standards
-        if( world.isNight() || world.isRaining() || world.isThundering() )
+        if( mainWorld.isNight() || mainWorld.isRaining() || mainWorld.isThundering() )
         {
-//            ConsoleUtil.logMessage("world.isNight() || world.isRaining() || world.isThundering()");
+//            ConsoleUtil.logMessage("mainWorld.isNight() || mainWorld.isRaining() || mainWorld.isThundering()");
             // Sleep is Vanilla-valid, which is either:
             // 1 - It's night;
             // 2 - It's day and thundering
@@ -86,7 +87,7 @@ public class SleepManager {
             {
 //                ConsoleUtil.logMessage("!hasReservations");
                 // No reservations. Check if it's Night time
-                if( WorldUtil.DayNightCycle.canBedsBeUsed(worldNightManager.getWorld()) )
+                if( WorldUtil.DayNightCycle.canBedsBeUsed(mainWorld) )
                 {
 //                    ConsoleUtil.logMessage("canBedsBeUsed");
                     // Night Time
@@ -96,18 +97,24 @@ public class SleepManager {
 //                    ConsoleUtil.logMessage("!canBedsBeUsed");
                     // Day Time. Since the sleep attempt is Vanilla valid, then it must be thundering.
                     // Check if server allows sleep during thunderstorm
-                    if( Sleep.configuration.chance_to_clear_weather_after_players_sleep > 0
-                        && Sleep.configuration.can_player_skip_weather_by_sleeping_during_the_day )
+                    if( mainWorld.isRaining() || mainWorld.isThundering() )
                     {
-                        // It's OK to sleep to skip thunderstorms
-                        this.initiateTimeSkipIfNotAlreadyStarted();
+//                        ConsoleUtil.logMessage("mainWorld.isRaining() || mainWorld.isThundering()");
+                        if( Sleep.configuration.chance_to_clear_weather_after_players_sleep > 0
+                            && Sleep.configuration.can_player_skip_weather_by_sleeping_during_the_day )
+                        {
+//                            ConsoleUtil.logMessage("b4 initiateTimeSkipIfNotAlreadyStarted");
+                            // It's OK to sleep to skip thunderstorms
+                            this.initiateTimeSkipIfNotAlreadyStarted();
 //                        worldNight.addPlayerWhoSlept( event.getPlayer() );
-                    } else {
-                        // Cannot skip thunderstorms because of server configuration
-                        sendMessageToPlayer(player, new StringFormattedModel()
-                            .add("Server is configured so that ").redR("you cannot skip weather")
-                            .add(" during the day!").toString());
-                        return false;
+                        } else {
+//                            ConsoleUtil.logMessage("b4 initiateTimeSkipIfNotAlreadyStarted");
+                            // Cannot skip thunderstorms because of server configuration
+                            sendMessageToPlayer(player, new StringFormattedModel()
+                                .add("Server is configured so that ").redR("you cannot skip weather")
+                                .add(" during the day!").toString());
+                            return false;
+                        }
                     }
                 }
             } else {
@@ -171,7 +178,6 @@ public class SleepManager {
     
     private void initiateTimeSkipIfNotAlreadyStarted()
     {
-    
         long currentDaySunrise = 24000L * Math.floorDiv(mainWorld.getTimeOfDay(), 24000L);
         long nextDaySunrise;
     
@@ -212,11 +218,11 @@ public class SleepManager {
         {
 //            ConsoleUtil.logMessage("isSkippingTheNight");
             // Check if any players in world are asleep
-            if( worldNightManager.isThereAtLeastOnePlayerInBed() )
+            if( this.areAnyPlayersSleepingOnBed() )
             {
 //                ConsoleUtil.logMessage("isThereAtLeastOnePlayerInBed");
                 // At least one player asleep. Attempt to skip the night
-                if( WorldUtil.DayNightCycle.skipNightUntilBedsCannotBeUsed(nextDaySunrise, worldNightManager.getWorld()) )
+                if( WorldUtil.DayNightCycle.skipNightUntilBedsCannotBeUsed(nextDaySunrise, mainWorld) )
                 {
 //                    ConsoleUtil.logMessage("skipNightUntilBedsCannotBeUsed");
                     // Not yet daylight. Schedule another night skip
@@ -244,13 +250,15 @@ public class SleepManager {
         // There are no asleep players. Check if the world is at beds can be used end time
         if( !this.areAnyPlayersSleepingOnBed() )
         {
+//            ConsoleUtil.debugMessage("Cancelled night skip !areAnyPlayersSleepingOnBed");
             worldNightManager.setSkippingTheNight(false);
         } else if ( mainWorld.getTimeOfDay() >= nextDaySunrise )
         {
             // World is one tick after beds can be used ALONG with night was being skipped.
             // This means we should reset everything and let other players know who skipped the night
+//            ConsoleUtil.debugMessage("Night skip ended mainWorld.getTimeOfDay() >= nextDaySunrise");
             WorldUtil.attemptToClearWeatherDependingOnChance(
-                worldNightManager.getWorld(), Sleep.configuration.chance_to_clear_weather_after_players_sleep );
+                mainWorld, Sleep.configuration.chance_to_clear_weather_after_players_sleep );
             sendMessageToAllPlayers( new StringFormattedModel()
                 .add("Sleepy ones: ").add(worldNightManager.getStringOfPlayersInBed()));
             worldNightManager.resetReservations();

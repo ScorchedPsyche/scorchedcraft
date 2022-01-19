@@ -71,25 +71,29 @@ public class WorldUtil {
             public static final long MONSTERS_SPAWN_END = 13187;
         }
 
-        public static boolean canBedsBeUsed(@NotNull World world)
-        {
+        public static boolean canBedsBeUsed(@NotNull ServerWorld world)
+        {;
+            long currentDayTime = world.getTimeOfDay() - 24000L * Math.floorDiv(world.getTimeOfDay(), 24000L);
+            
 //            ConsoleUtil.logMessage("world.getTimeOfDay() " + world.getTimeOfDay());
             if( !world.isRaining() )
             {
 //                ConsoleUtil.logMessage("!world.isRaining()");
+//                ConsoleUtil.logMessage("world.getTimeOfDay() " + world.getTimeOfDay());
+//                ConsoleUtil.logMessage("currentDayTime " + currentDayTime);
 //                ConsoleUtil.logMessage("BEDS_CAN_BE_USED_START " + DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START);
 //                ConsoleUtil.logMessage("BEDS_CAN_BE_USED_END " + DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END);
                 // Not raining. Use time for clear weather
-                return world.getTimeOfDay() >= DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START
-                    && world.getTimeOfDay() < DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END;
+                return currentDayTime >= DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_START
+                    && currentDayTime < DayNightCycle.WEATHER_CLEAR.BEDS_CAN_BE_USED_END;
             }
     
 //            ConsoleUtil.logMessage("world.isRaining()");
 //            ConsoleUtil.logMessage("BEDS_CAN_BE_USED_START " + DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START);
 //            ConsoleUtil.logMessage("BEDS_CAN_BE_USED_END " + DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END);
             // Use raining time
-            return world.getTimeOfDay() >= DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START
-                && world.getTimeOfDay() < DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END;
+            return currentDayTime >= DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_START
+                && currentDayTime < DayNightCycle.WEATHER_RAIN.BEDS_CAN_BE_USED_END;
         }
     
         public static boolean skipNightUntilBedsCannotBeUsed(long nextDaySunrise, World world)
