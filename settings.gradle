@@ -20,9 +20,10 @@ include (
         // Fabric
         'scorchedcraft-fabric',
         'scorchedcraft-fabric:core',
+//        'scorchedcraft-fabric:hud',
+//        'scorchedcraft-fabric:portals',
 //        'scorchedcraft-fabric:seasons',
         'scorchedcraft-fabric:sleep',
-//        'scorchedcraft-fabric:portals',
-        'scorchedcraft-fabric:wandering_trades'
+//        'scorchedcraft-fabric:wandering_trades'
 //        'scorchedcraft-fabric:worlds'
 )

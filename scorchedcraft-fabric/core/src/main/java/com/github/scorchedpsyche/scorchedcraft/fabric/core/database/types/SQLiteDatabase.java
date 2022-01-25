@@ -17,6 +17,7 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.database.types;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.interfaces.IDatabase;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 
 import java.sql.*;
@@ -42,14 +43,15 @@ public class SQLiteDatabase implements IDatabase
     {
         try (Connection conn = DriverManager.getConnection(databaseUrl)) {
             if (conn != null) {
-                ConsoleUtil.logMessage(
+                ConsoleUtil.logMessage( ScorchedCraftManager.Core.Name.full,
                     "Connection to SQLite has been established at: " + databaseUrl);
                 conn.close();
             }
         } catch (SQLException e) {
-            ConsoleUtil.logError(
+            ConsoleUtil.logError( ScorchedCraftManager.Core.Name.full,
                 "SQLite database connection failed. Check folder write permissions at: " + databaseUrl);
             ConsoleUtil.logError( e.getMessage() );
+            System.exit(1);
         }
     }
     

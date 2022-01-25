@@ -18,8 +18,8 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.core.main.database;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.database.DatabaseManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.database.DatabaseTables;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.MessageModel;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.MessageModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.DatabaseUtil;
 

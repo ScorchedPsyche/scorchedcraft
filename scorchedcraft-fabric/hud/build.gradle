@@ -3,8 +3,8 @@ plugins {
 	id 'java-library'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -30,12 +30,12 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 
-//	api( project(":scorchedcraft-shared:worlds-shared") )
+//	api( project(":scorchedcraft-shared:template-shared") )
 
 	implementation( project(":scorchedcraft-fabric:core") )
 }
 
-//compileJava.dependsOn ':scorchedcraft-shared:worlds-shared:build'
+//compileJava.dependsOn ':scorchedcraft-shared:template-shared:build'
 
 processResources {
 	inputs.property "version", project.version
@@ -64,16 +64,16 @@ java {
 }
 
 jar {
-	from {
-		configurations
-				.runtimeClasspath
-				.collect {
-					if(it.name.contains("worlds__shared")) {
-						println('ZIPPED: ' + it.path)
-						zipTree(it)
-					}
-				}
-	}
+//	from {
+//		configurations
+//				.runtimeClasspath
+//				.collect {
+//					if(it.name.contains("worlds__shared")) {
+//						println('ZIPPED: ' + it.path)
+//						zipTree(it)
+//					}
+//				}
+//	}
 
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}

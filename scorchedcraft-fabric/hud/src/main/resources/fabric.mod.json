@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "scorchedcraft-worlds",
+  "id": "scorchedcraft-hud",
   "version": "${version}",
 
-  "name": "ScorchedCraft - Worlds",
-  "description": "Enables your players to travel between extra custom dimensions.",
+  "name": "ScorchedCraft - HUD",
+  "description": "Player customizable in-game HUD integrated with all other plugins from this suite.",
   "authors": [
     "ScorchedPsyche"
   ],
@@ -14,26 +14,23 @@
   },
 
   "license": "Apache-2.0",
-  "icon": "assets/scorchedcraft-worlds/icon.png",
+  "icon": "assets/scorchedcraft-hud/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.scorchedpsyche.scorchedcraft.fabric.worlds.Worlds"
-    ],
-    "server": [
-      "com.github.scorchedpsyche.scorchedcraft.fabric.worlds.WorldsServer"
+      "com.github.scorchedpsyche.scorchedcraft.fabric.hud.HUD"
     ]
   },
   "mixins": [
-    "scorchedcraft-worlds.mixins.json"
+    "scorchedcraft-hud.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
-    "minecraft": "1.18.x",
-    "java": ">=17",
+    "minecraft": ">=1.18-alpha.21.43.a",
+    "java": ">=16",
 
     "scorchedcraft-core": ">=0.0.1"
   },

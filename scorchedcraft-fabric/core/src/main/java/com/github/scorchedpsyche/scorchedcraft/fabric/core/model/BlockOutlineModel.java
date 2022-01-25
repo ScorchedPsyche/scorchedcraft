@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.models;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.model;
 
 //public class BlockOutlineModel {
 //    public BlockOutlineModel(BlockPos blockPos, int red, int green, int blue, int alpha)

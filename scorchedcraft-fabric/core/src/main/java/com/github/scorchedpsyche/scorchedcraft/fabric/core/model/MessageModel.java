@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.models;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.model;
 
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 
 import java.sql.ResultSet;

@@ -31,6 +31,12 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 
 //	api( project(":scorchedcraft-shared:core-shared") )
+//	implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.36.0.3'
+//	implementation "org.xerial:sqlite-jdbc:3.36.0.3"
+//	compileClasspath("org.xerial:sqlite-jdbc:3.36.0.3")
+	runtimeClasspath("org.xerial:sqlite-jdbc:3.36.0.3")
+	implementation group: 'org.yaml', name: 'snakeyaml', version: '1.29'
+	runtimeClasspath(group: 'org.yaml', name: 'snakeyaml', version: '1.29')
 }
 
 //compileJava.dependsOn ':scorchedcraft-shared:core-shared:build'
@@ -51,7 +57,7 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
 
 	// Minecraft 1.17 (21w19a) upwards uses Java 16.
-	it.options.release = 16
+	it.options.release = 17
 }
 
 java {
@@ -66,7 +72,7 @@ jar {
 		configurations
 				.runtimeClasspath
 				.collect {
-					if(it.name.contains("core__shared")) {
+					if(it.name.contains("jdbc")) {
 						println('ZIPPED: ' + it.path)
 						zipTree(it)
 					}

@@ -44,7 +44,7 @@ You're welcome to join our Discord and get in touch with us to discuss code or s
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Discord Integration;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Events;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Games;`  
-![#f6ff00](https://via.placeholder.com/15/f6ff00/000000?text=+) `HUD;`  
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `HUD;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Logger;`  
 ![#f6ff00](https://via.placeholder.com/15/f03c15/000000?text=+) `Portals;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Rewards;`  
@@ -55,4 +55,4 @@ You're welcome to join our Discord and get in touch with us to discuss code or s
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Streaming Support;`  
 ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+) `Wandering Trades;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `WorldGen;`  
-![#f6ff00](https://via.placeholder.com/15/f03c15/000000?text=+) `Worlds.`  
+![#f6ff00](https://via.placeholder.com/15/f6ff00/000000?text=+) `Worlds.`  

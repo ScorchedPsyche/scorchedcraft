@@ -16,7 +16,7 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives;
 
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.Nullable;

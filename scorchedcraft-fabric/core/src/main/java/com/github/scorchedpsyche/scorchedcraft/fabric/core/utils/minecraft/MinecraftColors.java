@@ -16,7 +16,7 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft;
 
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.ColorModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.ColorModel;
 
 public class MinecraftColors
 {

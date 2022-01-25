@@ -14,11 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.models;
-
-import org.w3c.dom.css.RGBColor;
-
-import java.awt.*;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.model;
 
 public class ColorModel {
     /**

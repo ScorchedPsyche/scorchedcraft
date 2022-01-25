@@ -17,13 +17,13 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.sleep;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.sleep.model.ConfigModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.FolderUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.MathUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.ResourcesUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.sleep.main.SleepManager;
-import com.github.scorchedpsyche.scorchedcraft.fabric.sleep.model.ConfigModel;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -116,6 +116,11 @@ public class Sleep implements ModInitializer {
 								!world.getDimension().hasEnderDragonFight() && !world.getDimension().hasCeiling())
 							{
 //								ConsoleUtil.logMessage("TRYING SLEEP");
+								playerServer.setSpawnPoint(
+									playerServer.getWorld().getRegistryKey(),
+									blockEntity.getPos(),
+									playerServer.getHorizontalFacing().asRotation(), true, true
+								);
 								
 								if( !sleepManager.isNightReservedExceptForPlayer(playerServer) )
 								{
@@ -123,10 +128,12 @@ public class Sleep implements ModInitializer {
 									{
 //										ConsoleUtil.logMessage("sleeping");
 										player.sleep( blockEntity.getPos() );
+										
 										return ActionResult.FAIL;
 									}
 								} else {
 //									ConsoleUtil.logMessage("ActionResult.FAIL");
+									
 									return ActionResult.FAIL;
 								}
 							}

@@ -16,7 +16,6 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft;
 
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.StringUtil;
 
 public class ConsoleUtil {

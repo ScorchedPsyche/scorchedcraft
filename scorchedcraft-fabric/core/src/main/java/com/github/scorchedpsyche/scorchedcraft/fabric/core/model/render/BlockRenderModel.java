@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.models.render;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.model.render;
 
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.ColorModel;
-import net.minecraft.block.Block;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.ColorModel;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockRenderModel extends ElementRenderModel {

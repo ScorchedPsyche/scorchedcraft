@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.main;
 
 public class ScorchedCraftManager {
     public static final boolean debug_mode = true;
@@ -54,6 +54,16 @@ public class ScorchedCraftManager {
 
         public static class Permissions {
             public static final String core = permission_prefix + ".core";
+        }
+    }
+    
+    public static class HUD
+    {
+        public static class Name
+        {
+            public static final String compact = "SC - HUD";
+            public static final String full = "ScorchedCraft - HUD";
+            public static final String pomXml = "scorchedcraft-hud";
         }
     }
     

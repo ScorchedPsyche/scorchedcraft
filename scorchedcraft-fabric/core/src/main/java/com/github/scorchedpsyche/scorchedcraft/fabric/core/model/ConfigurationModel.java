@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.models;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.model;
 
 public class ConfigurationModel
 {

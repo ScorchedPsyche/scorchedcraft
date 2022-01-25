@@ -17,9 +17,8 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.sleep.main;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ConsoleUtil;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.StringFormattedModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.PlayerUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.WorldUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.MathUtil;
@@ -27,7 +26,6 @@ import com.github.scorchedpsyche.scorchedcraft.fabric.sleep.Sleep;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
 
 public class SleepManager {
     public SleepManager()
@@ -61,7 +59,6 @@ public class SleepManager {
     /**
      * Processes any event of a player trying to sleep, whether it's valid or not (E.g.: trying to sleep in the Nether/End).
      * @param player The player that is trying to sleep which must be processed
-     * @param world
      */
     public boolean playerIsTryingToSleep(ServerPlayerEntity player)
     {
@@ -240,6 +237,8 @@ public class SleepManager {
                     worldNightManager.setSkippingTheNight(false);
 //                    ConsoleUtil.logMessage("!skipNightUntilBedsCannotBeUsed");
                 }
+            } else {
+                worldNightManager.setSkippingTheNight(false);
             }
         }
     }

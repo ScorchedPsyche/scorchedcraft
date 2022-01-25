@@ -18,6 +18,7 @@ package com.github.scorchedpsyche.scorchedcraft.fabric.core.database;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.database.types.SQLiteDatabase;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.interfaces.IDatabase;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.ScorchedCraftManager;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.natives.FolderUtil;
 
 import java.io.File;
@@ -38,7 +39,8 @@ public class DatabaseManager
 
             default: // SQLite
                 database = new SQLiteDatabase(
-                    FolderUtil.getOrCreateSuiteRootFolder() + File.separator + "craftera_suite.db" );
+                    FolderUtil.getOrCreateSuiteRootFolder() + File.separator +
+                        ScorchedCraftManager.Name.pomXml + ".db" );
                 break;
         }
     }

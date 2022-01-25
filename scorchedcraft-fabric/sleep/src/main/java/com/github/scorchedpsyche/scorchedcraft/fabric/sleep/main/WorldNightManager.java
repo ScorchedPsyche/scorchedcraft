@@ -17,8 +17,8 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.sleep.main;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.scorchedcraft.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.ScorchedCraftManager;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.StringFormattedModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.PlayerUtil;
 import com.github.scorchedpsyche.scorchedcraft.fabric.sleep.Sleep;
 import net.minecraft.entity.player.PlayerEntity;

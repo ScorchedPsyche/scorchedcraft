@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.models.render;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.model.render;
 
 public class ElementRenderModel {
     public enum RenderType{

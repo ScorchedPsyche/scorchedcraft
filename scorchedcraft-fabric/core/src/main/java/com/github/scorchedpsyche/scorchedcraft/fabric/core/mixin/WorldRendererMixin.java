@@ -17,23 +17,19 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.mixin;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.main.renderer.DebugRenderer;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.ColorModel;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.render.BlockRenderModel;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.render.ElementRenderModel;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.render.TextRenderModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.ColorModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.render.BlockRenderModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.render.ElementRenderModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.render.TextRenderModel;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.MinecraftColors;
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft.ServerUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.FontStorage;
-import net.minecraft.client.font.Glyph;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.*;
 import org.lwjgl.opengl.GL11;

@@ -17,13 +17,8 @@
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.utils.minecraft;
 
 import com.github.scorchedpsyche.scorchedcraft.fabric.core.Core;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.StringFormattedModel;
-import net.fabricmc.loader.api.FabricLoader;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.StringFormattedModel;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.dedicated.DedicatedServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
 
 public class ServerUtil {
     public static void sendMessageToAllPlayers(String message, boolean sendOnActionBar)

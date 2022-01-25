@@ -16,8 +16,8 @@
 
 package com.github.scorchedpsyche.scorchedcraft.fabric.core.main.renderer;
 
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.render.BlockRenderModel;
-import com.github.scorchedpsyche.scorchedcraft.fabric.core.models.render.TextRenderModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.render.BlockRenderModel;
+import com.github.scorchedpsyche.scorchedcraft.fabric.core.model.render.TextRenderModel;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Position;
 

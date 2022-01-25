@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.scorchedpsyche.scorchedcraft.fabric.core.models;
+package com.github.scorchedpsyche.scorchedcraft.fabric.core.model;
 
 import net.minecraft.world.World;
 
