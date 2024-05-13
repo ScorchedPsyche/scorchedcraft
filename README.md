@@ -35,22 +35,22 @@ You're welcome to join our Discord and get in touch with us to discuss code or s
 
 ## List
 
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Achievements;`  
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `AFK;`  
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Baby Entities;`  
+![#f03c15](https://via.placeholder.com/15/1589F0/000000?text=+) `Achievements;`  
+![#f03c15](https://via.placeholder.com/15/1589F0/000000?text=+) `AFK;`  
+![#f03c15](https://via.placeholder.com/15/1589F0/000000?text=+) `Baby Entities;`  
 ![#f6ff00](https://via.placeholder.com/15/f6ff00/000000?text=+) `Core;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Commerce;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Database Synchronization;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Discord Integration;`  
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Events;`  
+![#f03c15](https://via.placeholder.com/15/1589F0/000000?text=+) `Events;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Games;`  
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `HUD;`  
+![#f03c15](https://via.placeholder.com/15/1589F0/000000?text=+) `HUD;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Logger;`  
 ![#f6ff00](https://via.placeholder.com/15/f03c15/000000?text=+) `Portals;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Rewards;`  
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Seasons;`  
+![#f03c15](https://via.placeholder.com/15/1589F0/000000?text=+) `Seasons;`  
 ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+) `Sleep;`  
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Spectator Mode;`  
+![#f03c15](https://via.placeholder.com/15/1589F0/000000?text=+) `Spectator Mode;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Statistics;`  
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Streaming Support;`  
 ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+) `Wandering Trades;`  
